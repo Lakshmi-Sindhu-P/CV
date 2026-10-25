@@ -1,0 +1,437 @@
+---
+import '@fontsource-variable/fraunces/full.css';
+import '@fontsource-variable/newsreader/index.css';
+import '@fontsource-variable/jetbrains-mono/index.css';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Overture — Lakshmi Sindhu Pulugundla</title>
+    <meta name="description" content="Analyst by training, engineer by necessity, scientist by heart, fiddler by habit." />
+  </head>
+  <body>
+    <div class="page">
+      <header class="head">
+        <div class="mark">
+          <span class="monogram">LSP</span>
+          <span class="mark-name">Pulugundla, Lakshmi&nbsp;Sindhu</span>
+        </div>
+        <nav class="head-nav" aria-label="Sections">
+          <a href="#work"><i>01</i>Work</a>
+          <a href="#notes"><i>02</i>Notes</a>
+          <a href="#shelf"><i>03</i>Shelf</a>
+          <a href="#about"><i>04</i>About</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="overture" aria-labelledby="overture-title">
+          <div class="staff" aria-hidden="true">
+            <canvas id="field"></canvas>
+          </div>
+
+          <p class="kicker">Portfolio · MMXXVI</p>
+
+          <h1 id="overture-title" class="statement">
+            <span>Analyst by training,</span>
+            <span>engineer by necessity,</span>
+            <span>scientist by heart,</span>
+            <span class="fiddler">fiddler by habit.</span>
+          </h1>
+
+          <div class="under">
+            <p class="lede">
+              I take messy tables and make them answer questions — ledgers, fraud trails, forecasts,
+              protein networks. Right now I am moving from analysis into AI engineering, which mostly
+              means learning where models actually break: upstream, in the join.
+            </p>
+            <dl class="meta">
+              <div><dt>Based</dt><dd>Chicago, Illinois</dd></div>
+              <div><dt>Now</dt><dd>Data Analyst, Effexoft</dd></div>
+              <div><dt>Moving toward</dt><dd>Data &amp; AI engineering</dd></div>
+              <div><dt>Updated</dt><dd>October 2026</dd></div>
+            </dl>
+          </div>
+        </section>
+
+        <section class="doors" aria-label="Sections">
+          <a class="door" href="#work">
+            <span class="door-no">01</span>
+            <span class="door-title">Work ledger</span>
+            <span class="door-note">Four records, each with its numbers.</span>
+          </a>
+          <a class="door" href="#notes">
+            <span class="door-no">02</span>
+            <span class="door-title">Notes</span>
+            <span class="door-note">What I am learning, dated.</span>
+          </a>
+          <a class="door" href="#shelf">
+            <span class="door-no">03</span>
+            <span class="door-title">Shelf</span>
+            <span class="door-note">Singing, folklore, cooking, reading.</span>
+          </a>
+          <a class="door" href="#about">
+            <span class="door-no">04</span>
+            <span class="door-title">About</span>
+            <span class="door-note">The longer version, in prose.</span>
+          </a>
+        </section>
+      </main>
+
+      <footer class="foot">
+        <span>Fig. 01 — a staff of points, drawn from a 4.9M-row graph after pruning</span>
+        <span>sindhu.pl@outlook.com</span>
+      </footer>
+    </div>
+
+    <style is:global>
+      :root {
+        --paper: #f4efe3;
+        --paper-2: #efe8d8;
+        --ink: #17140f;
+        --ink-2: #3f3a30;
+        --muted: #6d6555;
+        --rust: #96432c;
+        --rule: rgba(23, 20, 15, 0.14);
+        --rule-soft: rgba(23, 20, 15, 0.07);
+      }
+
+      * { box-sizing: border-box; }
+
+      html { background: var(--paper); }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: 'Newsreader Variable', Georgia, serif;
+        font-size: 17px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+
+      a { color: inherit; text-decoration: none; }
+
+      .page {
+        min-height: 100svh;
+        padding: 26px clamp(20px, 3.4vw, 56px) 22px;
+        display: flex;
+        flex-direction: column;
+        gap: clamp(28px, 4vh, 54px);
+        position: relative;
+      }
+
+      /* ---------- header ---------- */
+
+      .head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 24px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .mark { display: flex; align-items: baseline; gap: 14px; }
+
+      .monogram {
+        font-family: 'Fraunces Variable', Georgia, serif;
+        font-variation-settings: 'SOFT' 40, 'WONK' 1, 'opsz' 20;
+        font-weight: 600;
+        font-size: 21px;
+        letter-spacing: -0.01em;
+      }
+
+      .mark-name,
+      .head-nav a,
+      .kicker,
+      .door-no,
+      .door-note,
+      .meta dt,
+      .meta dd,
+      .foot {
+        font-family: 'JetBrains Mono Variable', ui-monospace, monospace;
+        font-size: 10.5px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .mark-name { color: var(--muted); }
+
+      .head-nav { display: flex; gap: clamp(14px, 2.4vw, 34px); }
+
+      .head-nav a {
+        display: inline-flex;
+        gap: 7px;
+        align-items: baseline;
+        color: var(--ink-2);
+        padding-bottom: 3px;
+        border-bottom: 1px solid transparent;
+        transition: color 0.18s ease, border-color 0.18s ease;
+      }
+
+      .head-nav a i { font-style: normal; color: var(--muted); font-size: 9.5px; }
+      .head-nav a:hover { color: var(--rust); border-bottom-color: var(--rust); }
+
+      /* ---------- overture ---------- */
+
+      .overture {
+        position: relative;
+        padding: clamp(26px, 5vh, 58px) 0 clamp(18px, 3vh, 34px);
+        display: flex;
+        flex-direction: column;
+        gap: clamp(20px, 3.4vh, 38px);
+      }
+
+      .staff {
+        position: absolute;
+        inset: -8% -6% auto -6%;
+        height: min(88%, 560px);
+        z-index: 0;
+        pointer-events: none;
+        -webkit-mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 78%, transparent);
+        mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 78%, transparent);
+      }
+
+      #field { width: 100%; height: 100%; display: block; }
+
+      .kicker {
+        position: relative;
+        margin: 0;
+        color: var(--muted);
+        padding-left: 1px;
+      }
+
+      .statement {
+        position: relative;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        font-family: 'Fraunces Variable', Georgia, serif;
+        font-variation-settings: 'SOFT' 18, 'WONK' 0, 'opsz' 96;
+        font-weight: 500;
+        font-size: clamp(38px, 6.4vw, 86px);
+        line-height: 1.0;
+        letter-spacing: -0.024em;
+        max-width: 17ch;
+      }
+
+      .statement .fiddler {
+        font-family: 'Newsreader Variable', Georgia, serif;
+        font-style: italic;
+        font-variation-settings: normal;
+        font-weight: 400;
+        color: var(--rust);
+        letter-spacing: -0.01em;
+        padding-left: 0.1em;
+      }
+
+      .under {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+        gap: clamp(24px, 5vw, 80px);
+        align-items: start;
+        padding-top: clamp(10px, 2vh, 22px);
+        border-top: 1px solid var(--rule);
+      }
+
+      .lede {
+        margin: 0;
+        max-width: 54ch;
+        font-size: clamp(16.5px, 1.35vw, 19.5px);
+        line-height: 1.55;
+        color: var(--ink-2);
+        text-wrap: pretty;
+      }
+
+      .meta { margin: 0; display: grid; gap: 9px; }
+
+      .meta > div {
+        display: grid;
+        grid-template-columns: 8.5rem 1fr;
+        gap: 12px;
+        align-items: baseline;
+      }
+
+      .meta dt { color: var(--muted); letter-spacing: 0.12em; }
+      .meta dd { margin: 0; color: var(--ink); letter-spacing: 0.08em; text-transform: none; font-size: 11px; }
+
+      /* ---------- doors ---------- */
+
+      .doors {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        border-top: 1px solid var(--rule);
+        margin-top: auto;
+      }
+
+      .door {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        padding: 16px 20px 18px 0;
+        border-right: 1px solid var(--rule-soft);
+        transition: background 0.2s ease, padding-left 0.2s ease;
+      }
+
+      .door:last-child { border-right: 0; }
+      .door + .door { padding-left: 20px; }
+
+      .door:hover { background: var(--paper-2); }
+      .door:hover .door-title { color: var(--rust); }
+
+      .door-no { color: var(--muted); font-size: 9.5px; }
+
+      .door-title {
+        font-family: 'Fraunces Variable', Georgia, serif;
+        font-variation-settings: 'SOFT' 40, 'WONK' 1, 'opsz' 24;
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        transition: color 0.18s ease;
+      }
+
+      .door-note {
+        letter-spacing: 0.08em;
+        text-transform: none;
+        color: var(--muted);
+        font-size: 10.5px;
+        line-height: 1.5;
+      }
+
+      /* ---------- footer ---------- */
+
+      .foot {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding-top: 14px;
+        border-top: 1px solid var(--rule-soft);
+        color: var(--muted);
+        letter-spacing: 0.1em;
+        font-size: 9.5px;
+      }
+
+      @media (max-width: 860px) {
+        .head { flex-direction: column; align-items: flex-start; gap: 12px; }
+        .head-nav { flex-wrap: wrap; gap: 6px 18px; }
+        .statement { max-width: 100%; font-size: clamp(34px, 9vw, 54px); }
+        .under { grid-template-columns: 1fr; gap: 22px; }
+        .meta > div { grid-template-columns: 7rem 1fr; }
+        .doors { grid-template-columns: 1fr; }
+        .door, .door + .door { border-right: 0; border-bottom: 1px solid var(--rule-soft); padding: 14px 0; }
+        .foot { flex-direction: column; gap: 6px; }
+        .staff { height: 62%; inset: 0 -10% auto -10%; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * { transition: none !important; }
+      }
+    </style>
+
+    <script>
+      const canvas = document.getElementById('field');
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let raf = 0;
+      let start = performance.now();
+      let pointer = { x: -9999, y: -9999 };
+
+      function draw(t) {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const w = canvas.clientWidth;
+        const h = canvas.clientHeight;
+        if (canvas.width !== Math.floor(w * dpr) || canvas.height !== Math.floor(h * dpr)) {
+          canvas.width = Math.floor(w * dpr);
+          canvas.height = Math.floor(h * dpr);
+        }
+        const ctx = canvas.getContext('2d');
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.clearRect(0, 0, w, h);
+
+        const gap = 17;
+        const cols = Math.ceil(w / gap) + 1;
+        const rows = Math.ceil(h / gap) + 1;
+        const time = reduced ? 0 : (t - start) / 1000;
+
+        // five staff lines; notes sit on them
+        const staffGap = 54;
+        const staffTop = Math.round(h * 0.44);
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'rgba(23, 20, 15, 0.065)';
+        for (let i = 0; i < 5; i++) {
+          const y = staffTop + i * staffGap + 0.5;
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(w, y);
+          ctx.stroke();
+        }
+
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            const x = c * gap;
+            const y = r * gap;
+            const wave =
+              Math.sin(x * 0.012 + time * 0.5) * 0.5 +
+              Math.sin(y * 0.02 - time * 0.32) * 0.35 +
+              Math.sin((x + y) * 0.006 + time * 0.18) * 0.3;
+
+            // distance to the nearest staff line, in pixels
+            const lineIdx = Math.round((y - staffTop) / staffGap);
+            const onLine = lineIdx >= 0 && lineIdx < 5 && Math.abs(y - (staffTop + lineIdx * staffGap)) < 3;
+
+            // sparse notes on the staff: one dot every few columns, the rest recede
+            const isNote = onLine && (c + lineIdx * 4) % 11 === 0;
+
+            let radius = 0.7 + (wave + 1) * 0.45;
+            let alpha = 0.06 + (wave + 1) * 0.07;
+            if (onLine) { radius = 0.85; alpha = 0.12; }
+            if (isNote) { radius = 2.9 + (wave + 1) * 0.7; alpha = 0.46; }
+
+            const dx = x - pointer.x;
+            const dy = y - pointer.y;
+            const d = Math.hypot(dx, dy);
+            if (d < 200) {
+              const k = 1 - d / 200;
+              radius += k * 2.1;
+              alpha += k * 0.55;
+            }
+
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(150, 67, 44, ${Math.min(alpha, 0.72).toFixed(3)})`;
+            ctx.fill();
+          }
+        }
+      }
+
+      function loop(t) {
+        draw(t);
+        raf = requestAnimationFrame(loop);
+      }
+
+      canvas.addEventListener('pointermove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        pointer = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+      });
+      canvas.addEventListener('pointerleave', () => { pointer = { x: -9999, y: -9999 }; });
+
+      const ro = new ResizeObserver(() => draw(performance.now()));
+      ro.observe(canvas);
+
+      if (reduced) {
+        draw(performance.now());
+      } else {
+        raf = requestAnimationFrame(loop);
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) cancelAnimationFrame(raf);
+          else { start = performance.now() - 0; raf = requestAnimationFrame(loop); }
+        });
+      }
+    </script>
+  </body>
+</html>
