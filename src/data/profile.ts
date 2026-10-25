@@ -72,6 +72,19 @@ export const projects: Project[] = [
     stack: ['NetworkX', 'Graph analysis', 'Community detection', 'Python'],
   },
   {
+    id: 'clinical',
+    index: '04',
+    title: 'Clinical AI assistant for neurologists',
+    context: 'Independent project',
+    year: '2025',
+    outcome:
+      'A consultation note writes itself while the neurologist talks. Documentation time fell from 30–35 minutes to about 18.',
+    metrics: ['35→18 min', '96%+ transcription'],
+    method:
+      'FastAPI service with a medical speech-to-text pipeline, LLM summarisation, multi-turn conversation memory, and a QA validation suite. Role-based access control on PostgreSQL so every read of a patient record is attributable; audit trail designed before the model was tuned.',
+    stack: ['FastAPI', 'LLM integration', 'Medical ASR', 'PostgreSQL', 'RBAC'],
+  },
+  {
     id: 'spotify',
     index: '03',
     title: 'What actually drives repeat listening',

@@ -1,13 +1,13 @@
 ---
 import Paper from '@/layouts/Paper.astro';
 import StaffRule from '@/components/paper/StaffRule.astro';
-import { records, alsoShipped } from '@/data/records';
+import { records, workRecords, independentRecords, alsoShipped } from '@/data/records';
 import { href } from '@/lib/href';
 ---
 
 <Paper
   title="Work — Lakshmi Sindhu Pulugundla"
-  description={`${records.length} work records: a 547K-row procurement pipeline, a pruned protein network, and a rebuilt regression on 10,000 tracks.`}
+  description={`${records.length} records: a 547K-row procurement pipeline, a pruned protein network, a rebuilt regression on 10,000 tracks, and an independent clinical note assistant.`}
   current="work"
   fig={`Fig. 02 — the ledger: ${records.length} records, with the numbers they moved.`}
 >
@@ -21,13 +21,39 @@ import { href } from '@/lib/href';
     </p>
   </header>
 
-  <section class="ledger" aria-label="Work records">
+  <section class="ledger" aria-label="Employed and client work">
+    <h2 class="mono ledger-head">Employed and client work</h2>
     {
-      records.map((record) => (
+      workRecords.map((record) => (
         <a class="row" href={href(`/work/${record.slug}/`)}>
           <span class="row-rail">
             <span class="mono row-no">{record.index}</span>
             <span class="mono row-org">{record.org}</span>
+            <span class="mono row-period">{record.period}</span>
+          </span>
+          <span class="row-body">
+            <span class="row-title">{record.title}</span>
+            <span class="row-deck">{record.deck}</span>
+            <span class="row-chips">
+              {record.chips.map((chip) => (
+                <span class="chip mono">{chip}</span>
+              ))}
+            </span>
+          </span>
+          <span class="row-go mono" aria-hidden="true">Read →</span>
+        </a>
+      ))
+    }
+  </section>
+
+  <section class="ledger ledger-independent" aria-label="Independent projects">
+    <h2 class="mono ledger-head">Independent</h2>
+    {
+      independentRecords.map((record) => (
+        <a class="row" href={href(`/work/${record.slug}/`)}>
+          <span class="row-rail">
+            <span class="mono row-no">{record.index}</span>
+            <span class="mono row-org">Own project</span>
             <span class="mono row-period">{record.period}</span>
           </span>
           <span class="row-body">
@@ -66,6 +92,17 @@ import { href } from '@/lib/href';
 
 <style>
   .mast { padding-bottom: clamp(20px, 4vh, 40px); }
+
+  .ledger-head {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 26px 0 10px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .ledger-independent .ledger-head { border-top: 0; padding-top: 46px; }
 
   .ledger {
     display: flex;
@@ -132,7 +169,14 @@ import { href } from '@/lib/href';
   }
   .row:hover .row-go { color: var(--rust); }
 
-  .also { display: flex; flex-direction: column; gap: 14px; }
+  .also {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: clamp(34px, 6vh, 54px);
+    padding-top: 26px;
+    border-top: 1px solid var(--rule);
+  }
 
   .also-head { margin: 0; color: var(--muted); font-size: 10px; }
 
