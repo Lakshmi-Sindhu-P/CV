@@ -10,6 +10,13 @@ Newsreader / Inter / JetBrains Mono.
 The previous hand-written version of the site is preserved in [`legacy/`](./legacy) and is **not**
 deployed.
 
+![Home page](./docs/preview/home.jpg)
+
+<table><tr>
+<td><img src="./docs/preview/home-dark.jpg" alt="Dark scheme" width="420"></td>
+<td><img src="./docs/preview/design.jpg" alt="Design comparison sheet" width="420"></td>
+</tr></table>
+
 ---
 
 ## Run it
