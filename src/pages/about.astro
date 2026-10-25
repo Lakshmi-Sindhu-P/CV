@@ -1,0 +1,279 @@
+---
+import Paper from '@/layouts/Paper.astro';
+import StaffRule from '@/components/paper/StaffRule.astro';
+import { experience, education, certifications } from '@/data/profile';
+
+const statements = [
+  {
+    label: 'Analyst by training',
+    body: 'I learned this work from tables that had been maintained by hand for years, which is to say I learned it from definitions. Most disagreements I have sat in were not disagreements about arithmetic — they were two correct answers to two different questions. The first useful thing I do on any dataset is write down what each column is actually claiming.',
+  },
+  {
+    label: 'Engineer by necessity',
+    body: 'The pipelines got built because the alternative was a fortnight of manual reconciliation every month. SQL, Azure Data Factory, Spark, Delta Live Tables, Power BI — the stack is unremarkable on purpose. What I care about is that the thing runs without me: scheduled, monitored, documented, and boring enough that nobody has to ask me how it works.',
+  },
+  {
+    label: 'Scientist by heart',
+    body: 'A baseline before a model, an error bar before a headline, and a written account of the failure modes before anything ships. I would rather report that a model explains four per cent of the variance than draw a chart that implies it explains forty. One of the four records on this site is exactly that story.',
+  },
+  {
+    label: 'Fiddler, still learning the tune',
+    body: 'I am not an AI engineer yet. I am close enough to see the shape of what I do not know: evaluation that means something, retrieval that can be scored, agents that fail loudly instead of plausibly. In the meantime I build small things, break them, and keep the notes — which is where the shelf comes from.',
+  },
+];
+
+const principles = [
+  {
+    no: '01',
+    title: 'A number needs an owner',
+    body: 'Every metric on a dashboard should have a person who can explain how it is computed and what it cannot see. Otherwise it is decoration with a decimal point.',
+  },
+  {
+    no: '02',
+    title: 'Baseline before model',
+    body: 'The first model is a straight line, a hand count, or last month repeated. If the complicated version cannot beat that by a margin you can defend, it is not ready.',
+  },
+  {
+    no: '03',
+    title: 'Write the failure modes down',
+    body: 'What breaks, on which inputs, and who finds out. Documented before release, not after the first bad note in a clinical record.',
+  },
+];
+import { href } from '@/lib/href';
+---
+
+<Paper
+  title="About — Lakshmi Sindhu Pulugundla"
+  description="Analyst by training, engineer by necessity, scientist by heart, fiddler, still learning the tune. Where I have worked, what I studied, and how I work."
+  current="about"
+  fig="Fig. 04 — the longer version, set in prose."
+>
+  <header class="mast">
+    <p class="mast-kicker mono">03 — About</p>
+    <h1 class="mast-title display">The longer version</h1>
+    <p class="mast-deck">
+      Four sentences on the front page, unpacked here. One paragraph each, in the order they were
+      written.
+    </p>
+  </header>
+
+  <div class="statements">
+    {
+      statements.map((item, i) => (
+        <section class="statement">
+          <span class="mono statement-no">0{i + 1}</span>
+          <h2 class="statement-title italic">{item.label}</h2>
+          <p>{item.body}</p>
+        </section>
+      ))
+    }
+  </div>
+
+  <section class="principles" aria-labelledby="principles">
+    <h2 id="principles" class="mono block-head">How I work</h2>
+    <div class="principle-grid">
+      {
+        principles.map((p) => (
+          <div class="principle">
+            <span class="mono principle-no">{p.no}</span>
+            <h3 class="principle-title">{p.title}</h3>
+            <p>{p.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="history" aria-labelledby="history">
+    <h2 id="history" class="mono block-head">Where I have worked</h2>
+    <ul class="history-list">
+      {
+        experience.map((role) => (
+          <li>
+            <span class="mono history-period">{role.period}</span>
+            <span class="history-role">{role.role}</span>
+            <span class="history-org">{role.org} · {role.place}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="studied" aria-labelledby="studied">
+    <h2 id="studied" class="mono block-head">Studied</h2>
+    <ul class="studied-list">
+      {
+        education.map((school) => (
+          <li>
+            <span class="mono history-period">{school.period}</span>
+            <span class="studied-degree">{school.degree}</span>
+            <span class="history-org">{school.school} · {school.note}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="certs mono">Certified — {certifications.join(' · ')}</p>
+  </section>
+
+  <section class="contact" aria-labelledby="contact">
+    <h2 id="contact" class="mono block-head">Contact</h2>
+    <p class="contact-line">
+      I am in Chicago, and I answer email. The fastest way to reach me —
+      <a class="nowrap" href="mailto:sindhu.pl@outlook.com">sindhu.pl@outlook.com</a>.
+    </p>
+    <ul class="contact-links">
+      <li><a href="https://github.com/Lakshmi-Sindhu-P" rel="me noopener">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/lakshmi-sindhu-p/" rel="me noopener">LinkedIn</a></li>
+      <li><a href={href("/resume.pdf")}>Résumé (PDF)</a></li>
+    </ul>
+  </section>
+
+  <div class="fin">
+    <StaffRule notes={[3, 2, 4, 1, 2, 3]} width={260} label="fin — 03" />
+  </div>
+</Paper>
+
+<style>
+  .mast { padding-bottom: clamp(18px, 3vh, 30px); }
+
+  .statements {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--rule);
+  }
+
+  .statement {
+    display: grid;
+    grid-template-columns: 12rem minmax(0, 1fr);
+    gap: 4px clamp(16px, 3vw, 44px);
+    padding: clamp(22px, 3.4vh, 34px) 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+
+  .statement-no { grid-column: 1; font-size: 10px; color: var(--rust); }
+
+  .statement-title {
+    grid-column: 1;
+    margin: 8px 0 0;
+    font-size: clamp(18px, 1.7vw, 23px);
+    line-height: 1.2;
+    font-weight: 400;
+    color: var(--ink);
+    max-width: 11ch;
+  }
+
+  .statement p {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    margin: 0;
+    max-width: 66ch;
+    font-size: clamp(17px, 1.15vw, 18.5px);
+    line-height: 1.66;
+    color: var(--ink-2);
+    text-wrap: pretty;
+  }
+
+  .principles, .history, .studied, .contact {
+    margin-top: clamp(34px, 6vh, 64px);
+  }
+
+  .block-head {
+    margin: 0 0 20px;
+    padding-top: 14px;
+    border-top: 1px solid var(--rule);
+    color: var(--rust);
+    font-size: 9.5px;
+  }
+
+  .principle-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(18px, 3vw, 44px);
+    border-top: 1px solid var(--rule);
+    padding-top: 18px;
+  }
+
+  .principle { display: flex; flex-direction: column; gap: 7px; }
+  .principle-no { font-size: 9.5px; color: var(--rust); }
+
+  .principle-title {
+    margin: 0;
+    font-family: 'Fraunces Variable', Georgia, serif;
+    font-variation-settings: 'SOFT' 30, 'WONK' 0, 'opsz' 28;
+    font-weight: 500;
+    font-size: 19px;
+    letter-spacing: -0.012em;
+  }
+
+  .principle p { margin: 0; font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+
+  .history-list, .studied-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .history-list li, .studied-list li {
+    display: grid;
+    grid-template-columns: 12rem minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: 6px clamp(16px, 3vw, 44px);
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule-soft);
+    align-items: baseline;
+  }
+
+  .history-period { color: var(--muted); font-size: 9.5px; }
+  .history-role, .studied-degree { font-size: 17px; }
+  .history-org { font-size: 13.5px; color: var(--muted); line-height: 1.5; }
+
+  .certs {
+    margin: 20px 0 0;
+    color: var(--muted);
+    font-size: 9.5px;
+    letter-spacing: 0.1em;
+    text-transform: none;
+  }
+
+  .contact-line {
+    margin: 0;
+    max-width: 60ch;
+    font-size: clamp(17px, 1.2vw, 19px);
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+
+  .contact-line a { color: var(--rust); border-bottom: 1px solid var(--rust); }
+  .nowrap { white-space: nowrap; }
+
+  .contact-links {
+    list-style: none;
+    margin: 18px 0 0;
+    padding: 0;
+    display: flex;
+    gap: 22px;
+  }
+
+  .contact-links a {
+    font-family: 'JetBrains Mono Variable', ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 3px;
+    transition: color 0.18s ease, border-color 0.18s ease;
+  }
+
+  .contact-links a:hover { color: var(--rust); border-bottom-color: var(--rust); }
+
+  .fin { display: flex; justify-content: flex-end; }
+
+  @media (max-width: 860px) {
+    .statement { grid-template-columns: 1fr; }
+    .statement p { grid-column: 1; grid-row: auto; margin-top: 10px; }
+    .statement-title { max-width: none; }
+    .principle-grid { grid-template-columns: 1fr; }
+    .history-list li, .studied-list li { grid-template-columns: 1fr; gap: 3px; }
+  }
+</style>

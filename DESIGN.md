@@ -1,135 +1,90 @@
 # Design notes
 
-Why the site looks the way it does, what the design system actually contributes, and which
-decisions are still open.
+Why the site looks the way it does, what it deliberately does not do, and what is still unresolved.
 
 ---
 
-## 1. The idea: a report, not a template
+## 1. The idea: a private paper, printed once
 
-Most analyst portfolios are a photo, a summary, and six cards of identical weight. Recruiters skim
-them; the evidence is buried in bullet points that all sound the same.
+The site is four pages of cream paper with ink on it, one rust accent, and a staff of small dots
+behind the opening statement. It reads like a document someone typeset for one reader, not like a
+landing page.
 
-This site borrows the structure of a **short research report**:
+Three decisions carry that:
 
-- Sections are numbered (`01 — Selected work`), and their labels sit in a left rail like running
-  heads.
-- The hero ends in four **figures**, and everything below is evidence for those figures.
-- Each project states its **outcome first** in one sentence, carries its numbers as metric chips,
-  and hides the method behind a disclosure for the reader who wants it.
-- Mono type is used only for metadata: dates, section numbers, metrics, stack names. It is the
-  "data" voice; Newsreader is the "writing" voice.
+- **Cream, not white.** `#f4efe3` paper with `#17140f` ink. White would say "product"; cream says
+  "printed for you". The single accent (`#96432c`, an iron-oxide rust) appears only where something
+  is claimed — a figure, a kicker, a link on hover.
+- **Two serifs and a mono, doing different jobs.** Fraunces (variable, soft optical axis) sets the
+  display lines — it has a little ink in it without becoming a costume. Newsreader italic carries the
+  fourth statement line and the coda, because the sentence that undercuts the claim should be set in
+  a different voice. JetBrains Mono is metadata only: labels, dates, figures, the footer.
+- **Music as a structural motif, never as naming.** Five hairline staff lines with sparse notes run
+  behind the cover statement, return as a small static phrase at the foot of every page (the "fin"),
+  and define the rhythm of section numbers. The nav is still plain — Work, Shelf, About — because a
+  pun in the navigation costs a recruiter three seconds and buys nothing.
 
-The payoff: a hiring manager can scan the page in 40 seconds and still come away with four numbers,
-and a technical interviewer can open any disclosure and find the method.
+## 2. What the structure earns
 
-## 2. Design system: three layers, one source of truth
+The reveal ladder that shaped the IA (documented in `docs/ia-research.md`) is: L0 one page → L1
+statement + work → **L2 now/uses** → L3 about + taste list → L4 dated notes → L5 ongoing practice.
 
-| Layer | Role | Why |
+This site sits at L3 with a door open to L4:
+
+| Page | Level | Why it exists |
 | --- | --- | --- |
-| **Astryx** (`@astryxdesign/core`) | Buttons, cards, badges, headings, text, stacks + the token vocabulary | 150+ accessible components grown inside Meta; ships prebuilt CSS (no PostCSS/Babel plugin) and themes through CSS custom properties |
-| **Tailwind v4** | Layout only: grid, flex, gap, max-width | Fast to iterate; no design decisions live in utilities |
-| **shadcn/ui** | Copy-in primitives for the ⌘K palette (`command`, `dialog`, `button`) | Owned source, no dependency to fight; the palette is the only interactive component that needs real JS |
+| `/` | L1–L2 | The claim, the texture, four doors. Facts a skimmer needs in one screen. |
+| `/work/` | L1 | A ledger of four records, each with its number. Scannable in 20 seconds. |
+| `/work/<slug>/` | L3 | Situation → what I did → what it moved → **what stayed hard**. |
+| `/shelf/` | L3 | Three things that are not data work and are not separate from it. |
+| `/about/` | L3 | The four sentences unpacked, plus history and contact. |
 
-**The token rule.** Astryx tokens (`--color-*`, `--font-family-*`, `--radius-*`, `--text-heading-*`)
-are the only palette. shadcn's variables are *aliases* of Astryx tokens in an `@theme inline` block,
-never a second palette — so the two systems cannot drift apart.
+The one thing every record carries is a **"what stayed hard"** section. A portfolio that only ships
+wins reads like a résumé; the failure note is what makes the wins credible, and it is the cheapest
+seniority signal a young profile can send.
 
-**The clash rule.** Both systems publish `text-primary` / `bg-accent` style utilities with different
-meanings. Rather than relying on which `@theme` block wins, colour is expressed through explicit
-classes in `global.css`:
+## 3. The texture
 
-- `.u-ink`, `.u-muted`, `.u-accent`, `.u-surface`, `.u-card`, `.u-muted-bg`, `.u-hairline` — colour
-  and borders.
-- `.eyebrow`, `.lede`, `.hero-title`, `.prose-body`, `.metric`, `.metric-label`, `.chip`,
-  `.link-underline`, `.kbd`, `.monogram` — the editorial voice.
-- Layout stays in Tailwind utilities.
+One canvas, no library:
 
-If you add a component, use these classes for anything that touches colour or type.
+- Five staff lines at `rgba(23,20,15,.065)`, a 17px grid.
+- A dot at every 11th column on a line (`r ≈ 2.9`, alpha `.46`) — sparse on purpose. The first
+  attempt drew the rules as dotted lines and read as notebook paper; the notes are the whole effect.
+- Dots brighten within 200px of the pointer, capped, and never animate faster than the cursor moves.
+- `prefers-reduced-motion` → draw one frame and stop. Tab hidden → pause. DPR capped at 2.
 
-**One Astryx quirk worth knowing:** it ships a single type system (system sans) for every theme, and
-its `Heading` component reads the *body* font token. `global.css` therefore maps
-`[data-astryx-theme] .astryx-heading` to `--font-family-heading` so component headings adopt the
-editorial serif.
+Cost: one `requestAnimationFrame` loop with ~1.4k points on a 1440px canvas. No Three.js, no GSAP,
+no scroll-jacking.
 
-## 3. Identity tokens
+## 4. What was rejected, and why
 
-Defined once, on `[data-astryx-theme='report']`, so Astryx components and hand-written CSS read the
-same values.
+- **The Astryx design system as the site's skin.** It ships five themes that share one type scale,
+  and all but *gothic* are light-only, so "choose a theme" produced four near-identical pages. It
+  stays installed for the `/design` lab page, which is `noindex` and not linked.
+- **A gothic / dark identity.** Closest to the "AI-native engineer" genre, but it made the data work
+  look like a side quest and put the site in the same near-black as every other engineer's.
+- **Scroll animations, parallax, a custom cursor.** A recruiter reads this in ninety seconds, often
+  on a phone, sometimes on a locked-down browser. Motion is hovers and fades.
+- **A contact form.** Email is the entry point; a form is a third party and a failure mode.
+- **Photos.** Typography and diagrams only, as requested.
 
-| Token | Light | Dark |
-| --- | --- | --- |
-| `--color-background-body` (paper) | `#faf9f6` | `#0f1216` |
-| `--color-background-surface` | `#ffffff` | `#151a1f` |
-| `--color-text-primary` (ink) | `#15171b` | `#e9e6df` |
-| `--color-text-secondary` | `#5b6068` | `#9ba3ac` |
-| `--color-border` / `emphasized` | `#e3dfd6` / `#c7c1b4` | `#262d35` / `#39424c` |
-| `--color-accent` | `#1e4b8f` | `#8fb3f0` |
-| `--color-on-accent` | `#ffffff` | `#0b1017` |
-| `--radius-inner` … `--radius-page` | `4 / 6 / 10 / 14px` | same |
+## 5. Accessibility and performance choices
 
-Type: **Newsreader** (headings, display) · **Inter** (body, UI) · **JetBrains Mono** (metadata).
-All three self-hosted through `@fontsource-variable` — no third-party font request at runtime.
+- The rust accent on paper measures ≈ 6.4:1 — it is safe for a figure or a label, and it is never
+  used for small mono text on a tinted panel.
+- Focus rings are visible on every interactive element, drawn with `outline-offset`, never removed.
+- The header nav marks the current page with `aria-current="page"` and an underline.
+- A skip link to `#main` on every page.
+- Fonts are self-hosted (`@fontsource-variable`), split by unicode-range, `font-display: swap`.
+- No client-side framework on the public pages: the only JavaScript is the canvas.
 
-One accent colour, used for: primary buttons, metric chips, the one pull-quote rule in the toolkit
-section, and hover states. Everything else is ink on paper.
+## 6. Still unresolved
 
-## 4. The theme comparison (and the verdict)
-
-`/design` renders the same components in five identities. What that exercise showed:
-
-| Identity | What changes | Verdict |
-| --- | --- | --- |
-| **Report** (custom) | Serif headings, paper background, 4–14px radii, ink-blue accent | **Chosen.** Only identity that does not read like a component library |
-| Neutral | Default Astryx: quiet greys, generous radii | Safe, interchangeable |
-| Stone | Warm greys | Close to Report without the typographic personality |
-| Butter | Cream + yellow, colourful buttons | Memorable but undersells technical depth |
-| Gothic | Dark-only, high contrast | Good mood, bad constraint (dark-only, prints badly) |
-
-Switching is one attribute on `<html>`: `data-astryx-theme="neutral"`. Themes are scoped with
-`@scope`, so a nested panel can wear a different theme — that is how `/design` works.
-
-## 5. Layout options
-
-`/design` also sketches three structures:
-
-- **A · Numbered report** — current build. Scans fast, prints well; depends on typography quality.
-- **B · Sticky portrait split** — a pinned left column with portrait, name, contact. Great for
-  recruiters, but needs a real photo (there is none in the repo) and costs mobile width.
-- **C · Case-file grid** — projects as tiles, figure-first. Most visual, but flattens method.
-
-Recommendation: keep **A**; adopt **B**'s sticky name rail on desktop only after a portrait exists.
-
-## 6. Behaviour
-
-- **⌘K palette** — sections, projects, and links; fuzzy-matched; the only React island
-  (`client:load`). The static header button talks to it through a DOM event, so no shared store.
-- **Reveal on scroll** — one IntersectionObserver, 12 lines, disabled under
-  `prefers-reduced-motion: reduce`.
-- **Theme** — `localStorage['lsp-theme']`, applied by an inline script before first paint so there
-  is no flash. Falls back to `prefers-color-scheme`.
-- **Print** — the print stylesheet drops the header and palette, prints the URL after each link,
-  and keeps sections from breaking across pages. The page is designed to be a usable PDF.
-- **Progressive enhancement** — nothing is hidden without JS (`html.no-js .reveal` stays visible).
-
-## 7. Accessibility
-
-- Skip link to `#main`; landmark elements (`header`, `main`, `footer`, `nav` with `aria-label`).
-- One `h1` (the name); sections use `h2`; project and role titles use `h3`.
-- Metric chips are a `ul` of `li`s rather than decorative spans, so they are announced.
-- Disclosures are native `<details>`/`<summary>` — keyboard and screen-reader behaviour for free.
-- Colour (measured): ink `#15171b` on paper `#faf9f6` 17.0:1; secondary `#5b6068` 6.0:1; accent
-  `#1e4b8f` 8.1:1; white on accent 8.5:1. Dark scheme: ink 15.1:1, secondary 7.4:1, accent 8.8:1.
-  All body text clears 4.5:1 in both schemes.
-- Focus states are never removed; the theme toggle and palette trigger are real `<button>`s.
-
-## 8. Open items
-
-1. **Dates.** Two résumés disagree on the start dates at Effexoft and TekLink. `profile.ts` uses the
-   newer PDF and flags `TODO(verify)`.
-2. **Portrait.** Layout B needs one. Without it the page stays text-first, which is fine but less
-   memorable.
-3. **Project detail pages.** Each project currently fits in one paragraph + a disclosure. Two of
-   them (clinical assistant, procurement pipeline) have enough method to justify `/work/<slug>`.
-4. **A writing section** would help for a data role — one short post on the network-pruning project
-   is the obvious candidate.
+- **Dates.** The two newest résumés disagree about when Effexoft and TekLink started. One
+  `TODO(verify)` in `src/data/profile.ts`; two pages read from it.
+- **The shelf is thin.** Singing and folklore describe a practice, not a repertoire. Three or four
+  real names — a song she actually sings, a book actually on the shelf — would turn the section from
+  plausible into lived-in.
+- **"Fiddler" is a pun.** It plays off the music motif. If the fiddle is real, the shelf should say so.
+- **No notes section yet.** L4 — a dated log of what she is learning — is the natural next page, and
+  the one that proves the transition instead of asserting it.

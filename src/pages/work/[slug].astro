@@ -1,0 +1,285 @@
+---
+import Paper from '@/layouts/Paper.astro';
+import StaffRule from '@/components/paper/StaffRule.astro';
+import { records } from '@/data/records';
+
+export function getStaticPaths() {
+  return records.map((record, i) => ({
+    params: { slug: record.slug },
+    props: {
+      record,
+      prev: records[(i - 1 + records.length) % records.length],
+      next: records[(i + 1) % records.length],
+    },
+  }));
+}
+
+const { record, prev, next } = Astro.props;
+
+const sections = [
+  { heading: 'What I did', body: record.work },
+  { heading: 'What it moved', body: record.moved },
+  { heading: 'What stayed hard', body: record.hard },
+];
+import { href } from '@/lib/href';
+---
+
+<Paper
+  title={`${record.title} — ${record.org}, ${record.period}`}
+  description={record.deck}
+  current="work"
+  fig={`Fig. ${record.index} — record ${record.index} of 04 · ${record.org}, ${record.period}`}
+>
+  <article class="record">
+    <div class="record-top">
+      <a class="back mono" href={href("/work/")}>← All work</a>
+      <span class="record-count mono">Record {record.index} / 04</span>
+    </div>
+
+    <header class="record-head">
+      <h1 class="record-title display">{record.title}</h1>
+      <p class="record-deck">{record.deck}</p>
+
+      <dl class="record-meta">
+        <div><dt class="mono">Organisation</dt><dd>{record.org}</dd></div>
+        <div><dt class="mono">Role</dt><dd>{record.role}</dd></div>
+        <div><dt class="mono">Place</dt><dd>{record.place}</dd></div>
+        <div><dt class="mono">Period</dt><dd>{record.period}</dd></div>
+      </dl>
+    </header>
+
+    <div class="record-body">
+      <section class="block figures-block">
+        <h2 class="section-head mono">The numbers</h2>
+        <div class="block-body">
+          <div class="figures">
+            {
+              record.figures.map((figure, i) => (
+                <div class="figure" class:list={{ lead: i === 0 }}>
+                  <span class="figure-value display">{figure.value}</span>
+                  <span class="figure-label mono">{figure.label}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2 class="section-head mono">The situation</h2>
+        <div class="block-body situation">
+          {record.situation.map((p) => <p>{p}</p>)}
+        </div>
+      </section>
+
+      {
+        sections.map((section) => (
+          <section class="block">
+            <h2 class="section-head mono">{section.heading}</h2>
+            <div class="block-body">
+              {section.body.map((p) => (
+                <p>{p}</p>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+
+      <section class="block">
+        <h2 class="section-head mono">Stack</h2>
+        <div class="block-body">
+          <ul class="stack">
+            {record.stack.map((item) => (
+              <li class="chip mono">{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <nav class="record-nav" aria-label="Other records">
+      <a href={href(`/work/${prev.slug}/`)}>
+        <span class="mono">← Previous</span>
+        <span class="record-nav-title">{prev.title}</span>
+      </a>
+      <a href={href(`/work/${next.slug}/`)} class="record-nav-next">
+        <span class="mono">Next →</span>
+        <span class="record-nav-title">{next.title}</span>
+      </a>
+    </nav>
+
+    <div class="fin">
+      <StaffRule notes={[1, 3, 2, 0, 2]} width={180} label={`fin — ${record.index}`} />
+    </div>
+  </article>
+</Paper>
+
+<style>
+  .record { display: flex; flex-direction: column; gap: clamp(26px, 5vh, 52px); }
+
+  .record-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    padding-top: clamp(10px, 2vh, 20px);
+  }
+
+  .back, .record-count { color: var(--muted); font-size: 9.5px; }
+  .back { border-bottom: 1px solid transparent; transition: color 0.18s ease, border-color 0.18s ease; }
+  .back:hover { color: var(--rust); border-bottom-color: var(--rust); }
+
+  .record-head { display: flex; flex-direction: column; gap: clamp(16px, 2.4vh, 24px); }
+
+  .record-title {
+    margin: 0;
+    font-size: clamp(36px, 5.4vw, 72px);
+    max-width: 20ch;
+  }
+
+  .record-deck {
+    margin: 0;
+    max-width: 54ch;
+    font-size: clamp(18px, 1.5vw, 21px);
+    line-height: 1.5;
+    color: var(--ink-2);
+    text-wrap: pretty;
+  }
+
+  .record-meta {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: 14px clamp(16px, 3vw, 40px);
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .record-meta dt { color: var(--muted); font-size: 9px; }
+  .record-meta dd {
+    margin: 4px 0 0;
+    font-family: 'JetBrains Mono Variable', ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+  }
+
+  /* one rail of labels on the left, one column of evidence on the right */
+  .record-body {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(26px, 4.4vh, 46px);
+    border-top: 1px solid var(--rule);
+    padding-top: clamp(20px, 3vh, 30px);
+  }
+
+  .block {
+    display: grid;
+    grid-template-columns: 11rem minmax(0, 1fr);
+    gap: 12px clamp(20px, 4vw, 64px);
+    align-items: start;
+  }
+
+  .block-body { display: flex; flex-direction: column; gap: 0.85em; min-width: 0; }
+
+  .section-head {
+    margin: 0;
+    padding-top: 0.42em;
+    color: var(--muted);
+    font-size: 9.5px;
+    position: sticky;
+    top: 24px;
+  }
+
+  .block-body p {
+    margin: 0;
+    max-width: 62ch;
+    font-size: clamp(17px, 1.15vw, 18.5px);
+    line-height: 1.66;
+    color: var(--ink-2);
+    text-wrap: pretty;
+  }
+
+  .situation p:first-child {
+    font-size: clamp(19px, 1.6vw, 22px);
+    line-height: 1.55;
+    color: var(--ink);
+    max-width: 56ch;
+  }
+
+  .figures {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(16px, 3vw, 44px);
+  }
+
+  .figure { display: flex; flex-direction: column; gap: 8px; }
+
+  .figure-value {
+    font-size: clamp(30px, 3.6vw, 46px);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .figure.lead .figure-value { color: var(--rust); }
+
+  .figure-label {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: none;
+    line-height: 1.55;
+    color: var(--muted);
+    max-width: 30ch;
+  }
+
+  .stack {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .chip {
+    font-size: 9.5px;
+    letter-spacing: 0.1em;
+    padding: 4px 9px;
+    border: 1px solid var(--rule);
+    color: var(--ink-2);
+  }
+
+  .record-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(16px, 3vw, 48px);
+    padding-top: 18px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .record-nav a { display: flex; flex-direction: column; gap: 6px; }
+  .record-nav a span.mono { color: var(--muted); font-size: 9.5px; }
+  .record-nav-next { text-align: right; }
+  .record-nav a:hover .record-nav-title { color: var(--rust); }
+
+  .record-nav-title {
+    font-family: 'Fraunces Variable', Georgia, serif;
+    font-variation-settings: 'SOFT' 30, 'WONK' 0, 'opsz' 28;
+    font-size: 19px;
+    font-weight: 500;
+    letter-spacing: -0.012em;
+    transition: color 0.18s ease;
+  }
+
+  .fin { display: flex; justify-content: flex-end; }
+
+  @media (max-width: 900px) {
+    .figures { grid-template-columns: 1fr; gap: 16px; }
+    .figure { flex-direction: row; align-items: baseline; gap: 14px; }
+    .figure-label { max-width: none; }
+    .block { grid-template-columns: 1fr; gap: 10px; }
+    .section-head { position: static; padding-top: 4px; }
+    .record-nav { grid-template-columns: 1fr; }
+    .record-nav-next { text-align: left; }
+  }
+</style>

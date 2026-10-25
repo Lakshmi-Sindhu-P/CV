@@ -1,0 +1,62 @@
+---
+/**
+ * A short phrase on a five-line staff — the site's recurring signature.
+ * `notes` are staff-line indices (0 = top line, 4 = bottom).
+ */
+interface Props {
+  notes?: number[];
+  width?: number;
+  label?: string;
+  class?: string;
+}
+
+const { notes = [3, 1, 2, 4, 2], width = 200, label, class: className } = Astro.props;
+const height = 44;
+const lineY = (i: number) => 6 + i * 8;
+const step = width / (notes.length + 1);
+---
+
+<div class:list={['staff-rule', className]}>
+  <svg
+    width={width}
+    height={height}
+    viewBox={`0 0 ${width} ${height}`}
+    fill="none"
+    aria-hidden="true"
+    preserveAspectRatio="none"
+  >
+    {[0, 1, 2, 3, 4].map((i) => (
+      <line x1="0" y1={lineY(i)} x2={width} y2={lineY(i)} stroke="currentColor" stroke-width="1" opacity="0.22" />
+    ))}
+    {notes.map((line, i) => (
+      <ellipse
+        cx={step * (i + 1)}
+        cy={lineY(line)}
+        rx={i === 0 ? 3.6 : 3}
+        ry={i === 0 ? 2.7 : 2.3}
+        fill="currentColor"
+        opacity={i === 0 ? 0.85 : 0.55}
+      />
+    ))}
+  </svg>
+  {label && <span class="staff-rule-label">{label}</span>}
+</div>
+
+<style>
+  .staff-rule {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--rust);
+  }
+
+  .staff-rule svg { display: block; }
+
+  .staff-rule-label {
+    font-family: 'JetBrains Mono Variable', ui-monospace, monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+</style>

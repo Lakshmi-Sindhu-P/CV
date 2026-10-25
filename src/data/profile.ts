@@ -125,7 +125,7 @@ export const experience: Role[] = [
     org: 'Effexoft',
     role: 'Data Analyst',
     period: 'Aug 2025 — Present',
-    place: 'Chicago, IL',
+    place: 'Remote',
     proof: '−60% query time',
     points: [
       'Clinical AI assistant (FastAPI, LLM, medical ASR): consultation documentation from 30–35 min to ~18 min at 96%+ transcription accuracy.',

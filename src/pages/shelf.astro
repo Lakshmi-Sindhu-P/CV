@@ -1,0 +1,210 @@
+---
+import Paper from '@/layouts/Paper.astro';
+import StaffRule from '@/components/paper/StaffRule.astro';
+import { alsoShipped } from '@/data/records';
+---
+
+<Paper
+  title="Shelf — Lakshmi Sindhu Pulugundla"
+  description="Singing, mythology and folklore, and the side projects I keep while learning AI engineering."
+  current="shelf"
+  fig="Fig. 03 — the shelf: not a list of hobbies, a note on what each one taught me."
+>
+  <header class="mast">
+    <p class="mast-kicker mono">02 — Shelf</p>
+    <h1 class="mast-title display">What I do when the table is clean</h1>
+    <p class="mast-deck">
+      Three things that are not data work and are not separate from it. Each one changed how I read
+      a number — which is the only reason they belong on a professional site.
+    </p>
+  </header>
+
+  <div class="shelf">
+    <article class="piece">
+      <div class="piece-rail">
+        <span class="mono piece-no">01</span>
+        <span class="mono piece-label">Singing</span>
+      </div>
+      <div class="piece-body">
+        <h2 class="piece-title display">The ear as the first instrument</h2>
+        <div class="prose">
+          <p>
+            I sing. Not for an audience — for what it does to attention. A phrase you have to hold
+            on one breath teaches you exactly where your ear is lying to you, and there is no
+            dashboard for that.
+          </p>
+          <p>
+            Most of what I know about listening came from trying to reproduce a phrase precisely: the
+            entry, the space after it, the note that is a little flat and better for it. Precision and
+            accuracy are different things in music first, and only later in statistics.
+          </p>
+        </div>
+        <ul class="notes">
+          <li><span class="mono notes-k">Breath</span> comes before volume. Same with dashboards: pacing before polish.</li>
+          <li><span class="mono notes-k">Pitch</span> is a decision, not a fact — you choose the centre you are singing around.</li>
+          <li><span class="mono notes-k">The second take</span> is usually the honest one. So is the second model.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="piece">
+      <div class="piece-rail">
+        <span class="mono piece-no">02</span>
+        <span class="mono piece-label">Mythology &amp; folklore</span>
+      </div>
+      <div class="piece-body">
+        <h2 class="piece-title display">Stories that survived their own compression</h2>
+        <div class="prose">
+          <p>
+            Folklore is the oldest data structure we have. A story that made it across two thousand
+            years of retelling has been compressed until only the load-bearing parts remain — which is
+            a harsher filter than most feature selection I have run.
+          </p>
+          <p>
+            What I take from it is mostly about categories. Myth is obsessed with boundaries: what
+            counts as inside, who is allowed to cross, what happens when the rule is broken. Half of
+            data governance is that same conversation, with worse typography.
+          </p>
+          <p>
+            I read myth, folklore, and the tarot as a body of case studies in ambiguity — systems that
+            people built to hold contradictions without resolving them. Useful training for anyone who
+            has been asked for a single definition of “active user”.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <article class="piece">
+      <div class="piece-rail">
+        <span class="mono piece-no">03</span>
+        <span class="mono piece-label">Side projects</span>
+      </div>
+      <div class="piece-body">
+        <h2 class="piece-title display">And the learning log, in public</h2>
+        <div class="prose">
+          <p>
+            The move from analysis into AI engineering is mostly infrastructure: evaluation before
+            prompting, retrieval you can measure, agents that fail loudly instead of plausibly. I learn
+            it by building small things that are allowed to be wrong on the internet.
+          </p>
+        </div>
+        <ul class="projects">
+          {
+            alsoShipped.map((item) => (
+              <li>
+                <span class="projects-title">{item.title}</span>
+                <span class="projects-detail">{item.detail}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="learning mono">
+          Currently learning — evaluation harnesses, retrieval that can be scored, and the unglamorous
+          middle of a pipeline.
+        </p>
+      </div>
+    </article>
+  </div>
+
+  <div class="fin">
+    <StaffRule notes={[2, 4, 1, 3, 2, 0]} width={240} label="fin — 02" />
+  </div>
+</Paper>
+
+<style>
+  .mast { padding-bottom: clamp(18px, 3vh, 30px); }
+
+  .shelf {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--rule);
+  }
+
+  .piece {
+    display: grid;
+    grid-template-columns: 12rem minmax(0, 1fr);
+    gap: clamp(16px, 3vw, 44px);
+    padding: clamp(26px, 4vh, 40px) 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+
+  .piece-rail { display: flex; flex-direction: column; gap: 6px; }
+  .piece-no { font-size: 11px; color: var(--rust); }
+  .piece-label { font-size: 10px; color: var(--muted); }
+
+  .piece-body { display: flex; flex-direction: column; gap: 16px; }
+
+  .piece-title {
+    margin: 0;
+    font-size: clamp(24px, 2.6vw, 34px);
+    max-width: 26ch;
+  }
+
+  .prose p { max-width: 62ch; }
+  .prose p + p { margin-top: 1em; }
+
+  .notes {
+    list-style: none;
+    margin: 4px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid var(--rule-soft);
+    max-width: 62ch;
+  }
+
+  .notes li {
+    display: grid;
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+    gap: 14px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--rule-soft);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+
+  .notes-k { color: var(--rust); font-size: 9.5px; padding-top: 0.35em; }
+
+  .projects {
+    list-style: none;
+    margin: 2px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+    column-gap: clamp(20px, 4vw, 48px);
+  }
+
+  .projects li {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 11px 0;
+    border-top: 1px solid var(--rule-soft);
+  }
+
+  .projects-title { font-size: 15.5px; }
+  .projects-detail { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  .learning {
+    margin: 6px 0 0;
+    max-width: 62ch;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: none;
+    color: var(--muted);
+    line-height: 1.7;
+    padding-top: 12px;
+    border-top: 1px solid var(--rule-soft);
+  }
+
+  .fin { display: flex; justify-content: flex-end; }
+
+  @media (max-width: 860px) {
+    .piece { grid-template-columns: 1fr; gap: 12px; }
+    .piece-rail { flex-direction: row; gap: 14px; align-items: baseline; }
+    .notes li { grid-template-columns: 1fr; gap: 2px; }
+  }
+</style>
