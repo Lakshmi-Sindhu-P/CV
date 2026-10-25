@@ -24,6 +24,8 @@ export type WorkRecord = {
   moved: string[];
   hard: string[];
   stack: string[];
+  /** Public code, when there is any to read. */
+  repo?: { label: string; url: string };
 };
 
 export const records: WorkRecord[] = [
@@ -96,6 +98,7 @@ export const records: WorkRecord[] = [
       'The honest version of “the graph found the answer” is “the graph agreed with the literature once we had already decided how to cut it”.',
     ],
     stack: ['Python', 'NetworkX', 'Community detection', 'Centrality analysis', 'STRING'],
+    repo: { label: 'Network-Analysis-NSCLC', url: 'https://github.com/Lakshmi-Sindhu-P/Network-Analysis-NSCLC' },
   },
   {
     slug: 'repeat-listening',
@@ -131,6 +134,7 @@ export const records: WorkRecord[] = [
       'Everything here is observational. It measures what correlates with repetition, not what causes it.',
     ],
     stack: ['R', 'Python', 'Ridge / Lasso', 'Regression diagnostics', 'Cross-validation'],
+    repo: { label: 'Enhanced-Spotify-Attribute-Analysis', url: 'https://github.com/Lakshmi-Sindhu-P/Enhanced-Spotify-Attribute-Analysis' },
   },
   {
     slug: 'clinical-notes',
@@ -166,6 +170,7 @@ export const records: WorkRecord[] = [
       'Evaluation needs the people whose work you are changing. A dashboard that says 96% is not the same as a neurologist saying it sounds like her.',
     ],
     stack: ['FastAPI', 'Medical ASR', 'LLM summarisation', 'PostgreSQL', 'Role-based access control', 'Evaluation design'],
+    repo: { label: 'NeuroAssisit_AI', url: 'https://github.com/Lakshmi-Sindhu-P/NeuroAssisit_AI' },
   },
 ];
 
@@ -175,11 +180,50 @@ export const workRecords = records.filter((r) => r.group === 'work');
 export const independentRecords = records.filter((r) => r.group === 'independent');
 
 /** Smaller shipped work — real entries, no padding. */
-export const alsoShipped = [
-  { title: 'S&P 500 forecasting', detail: '23,323 daily records, 1927–2024 · LSTM with a Streamlit front end' },
-  { title: 'Driver drowsiness detection', detail: '93% accuracy, 7% false positives, 30–50 ms latency · OpenCV' },
-  { title: 'Banking fraud pipelines', detail: '10M+ transactions · Spark SQL, Delta Live Tables, transfer validation' },
-  { title: 'YouTube trending analysis', detail: '40,000 videos across four countries' },
-  { title: 'AI email generator', detail: '60+ unit tests · 70% faster composition' },
-  { title: 'Atlas voice travel guide', detail: 'LiveKit, voice activity detection, GPT-4o tool calling' },
+export type SideProject = {
+  title: string;
+  detail: string;
+  note: string;
+  url?: string;
+  /** Shown instead of a link when there is no public code. */
+  linkNote?: string;
+};
+
+export const alsoShipped: SideProject[] = [
+  {
+    title: 'S&P 500 forecasting',
+    detail: '23,323 daily records, 1927–2024 · LSTM with a Streamlit front end',
+    note: 'Ninety-seven years of daily closes, an LSTM reading sixty-day windows, and a Streamlit page that lets you pick a ticker. The useful lesson was how quickly a model on that much history runs out of things to say about next week, and how much of the accuracy was the market drifting upward.',
+    url: 'https://github.com/Lakshmi-Sindhu-P/Stock-Market-Prediction',
+  },
+  {
+    title: 'Driver drowsiness detection',
+    detail: '93% accuracy, 7% false positives, 30–50 ms latency · OpenCV',
+    linkNote: 'No public code',
+    note: 'A webcam, an eye-aspect-ratio calculation, and a threshold that had to fire in under fifty milliseconds, because the cost of a miss is a car. The false-positive rate mattered more than the accuracy — a system that beeps at every blink gets switched off.',
+  },
+  {
+    title: 'Banking fraud pipelines',
+    detail: '10M+ transactions · Spark SQL, Delta Live Tables, transfer validation',
+    linkNote: 'Client work — no public code',
+    note: 'Ten million transactions through Spark SQL and Delta Live Tables, with schema enforcement and transfer validation at the boundary. The 183,000 labelled fraud cases existed to answer one question: did the pipeline silently drop the rows that mattered?',
+  },
+  {
+    title: 'YouTube trending analysis',
+    detail: '40,000 videos across four countries',
+    note: 'Four national trending pages and forty thousand videos, asking what actually separates a video that trends in India from one that trends in the United States. Most of the answer was timing and channel size, not content.',
+    url: 'https://github.com/Lakshmi-Sindhu-P/Youtube-Trending-Video-Analysis',
+  },
+  {
+    title: 'AI email generator',
+    detail: '60+ unit tests · 70% faster composition',
+    note: 'A Streamlit app that drafts two emails in different tones and five subject lines from a few inputs. Sixty tests on prompt output taught me more about evaluation than the prompt did: most of the work was deciding what a wrong draft looks like.',
+    url: 'https://github.com/Lakshmi-Sindhu-P/ai-email-generator',
+  },
+  {
+    title: 'Atlas voice travel guide',
+    detail: 'LiveKit, voice activity detection, GPT-4o tool calling',
+    note: 'A voice-first agent that hears a request, looks up listings by city, and books by confirmation number without a keyboard. The hard part was never the prompt — it was latency and interruption: knowing when to stop talking.',
+    url: 'https://github.com/Lakshmi-Sindhu-P/Atlas',
+  },
 ];

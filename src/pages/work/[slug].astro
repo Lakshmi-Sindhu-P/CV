@@ -93,6 +93,16 @@ import { href } from '@/lib/href';
               <li class="chip mono">{item}</li>
             ))}
           </ul>
+          {
+            record.repo && (
+              <p class="repo-line mono">
+                Code —{' '}
+                <a href={record.repo.url} target="_blank" rel="noreferrer">
+                  {record.repo.label}
+                </a>
+              </p>
+            )
+          }
         </div>
       </section>
     </div>
@@ -231,6 +241,24 @@ import { href } from '@/lib/href';
     color: var(--muted);
     max-width: 30ch;
   }
+
+  .repo-line {
+    margin: 16px 0 0;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .repo-line a {
+    color: var(--rust);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(150, 67, 44, 0.3);
+    text-transform: none;
+    letter-spacing: 0.02em;
+  }
+
+  .repo-line a:hover { border-bottom-color: var(--rust); }
 
   .stack {
     list-style: none;

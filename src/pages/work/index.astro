@@ -76,9 +76,19 @@ import { href } from '@/lib/href';
     <ul class="also-list">
       {
         alsoShipped.map((item) => (
-          <li>
-            <span class="also-title">{item.title}</span>
-            <span class="also-detail">{item.detail}</span>
+          <li class="also-row">
+            <div class="also-what">
+              <span class="also-title">{item.title}</span>
+              <span class="mono also-detail">{item.detail}</span>
+            </div>
+            <p class="also-note">{item.note}</p>
+            {item.url ? (
+              <a class="mono also-link" href={item.url} target="_blank" rel="noreferrer">
+                Repository →
+              </a>
+            ) : (
+              <span class="mono also-link also-link-none">{item.linkNote}</span>
+            )}
           </li>
         ))
       }
@@ -184,27 +194,63 @@ import { href } from '@/lib/href';
     list-style: none;
     margin: 0;
     padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
-    column-gap: clamp(20px, 4vw, 56px);
-  }
-
-  .also-list li {
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    padding: 11px 0;
+  }
+
+  .also-row {
+    display: grid;
+    grid-template-columns: 15rem minmax(0, 1fr) 9rem;
+    gap: clamp(18px, 3vw, 40px);
+    align-items: start;
+    padding: 20px 0;
     border-top: 1px solid var(--rule-soft);
   }
 
-  .also-title { font-size: 15.5px; }
-  .also-detail { font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .also-row:first-child { border-top: 0; padding-top: 4px; }
+  .also-row:last-child { border-bottom: 1px solid var(--rule-soft); padding-bottom: 24px; }
 
-  .fin { display: flex; justify-content: flex-end; padding-top: 6px; }
+  .also-what { display: flex; flex-direction: column; gap: 6px; }
+
+  .also-title { font-size: 15px; letter-spacing: -0.008em; }
+
+  .also-detail {
+    font-size: 9.5px;
+    line-height: 1.6;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .also-note {
+    margin: 0;
+    font-size: 14.5px;
+    line-height: 1.62;
+    color: var(--ink-2);
+    max-width: 58ch;
+  }
+
+  .also-link {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--rust);
+    justify-self: end;
+    white-space: nowrap;
+    border-bottom: 1px solid rgba(150, 67, 44, 0.3);
+    padding-bottom: 2px;
+  }
+
+  .also-link:hover { border-bottom-color: var(--rust); }
+
+  .also-link-none { color: var(--muted); border-bottom: 0; }
 
   @media (max-width: 860px) {
     .row { grid-template-columns: 1fr; gap: 10px; }
     .row-rail { flex-direction: row; gap: 14px; align-items: baseline; }
     .row-go { text-align: left; }
+    .also-row { grid-template-columns: 1fr; gap: 10px; }
+    .also-link, .also-link-none { justify-self: start; }
   }
 </style>
