@@ -1,5 +1,5 @@
 /**
- * The four work records. Every figure here is the one already used on the
+ * The work records. Every figure here is the one already used on the
  * résumé — nothing is rounded up, and nothing is invented. Prose is written
  * from what the work actually did.
  */
@@ -26,42 +26,8 @@ export type WorkRecord = {
 
 export const records: WorkRecord[] = [
   {
-    slug: 'clinical-notes',
-    index: '01',
-    title: 'A consultation note that writes itself',
-    org: 'Effexoft',
-    place: 'Remote',
-    period: '2025',
-    role: 'Data Analyst',
-    deck: 'Neurologists were writing notes thirty minutes after the patient had left the room, from memory. We moved the writing into the room.',
-    chips: ['35 → 18 min', '96%+ transcription', '50+ evaluation sessions'],
-    figures: [
-      { value: '35→18', label: 'minutes of documentation per consultation' },
-      { value: '96%+', label: 'transcription accuracy on the evaluation set' },
-      { value: '50+', label: 'scripted evaluation sessions before release' },
-    ],
-    situation: [
-      'A consultation is fifteen minutes of talking and thirty minutes of writing. The writing happens afterwards, so it happens from memory — and memory flattens exactly the details that matter in neurology: which side, how long, how often, getting worse or better.',
-      'The ask was to make the note appear while the talking happened. The constraint nobody stated out loud was that a wrong note is worse than no note: it gets signed, filed, and read by someone who was not in the room.',
-    ],
-    work: [
-      'A FastAPI service in front of a medical speech-to-text model, with an LLM summarisation layer whose output is structured into the note sections the clinic already used. Multi-turn memory keeps the thread when a consultation returns to an earlier complaint.',
-      'The parts that were not modelling were most of the build: role-based access control on PostgreSQL so every read of a patient record is attributable, an audit trail designed before the prompt was tuned, and a scripted evaluation suite — over fifty sessions — that scored the output against what the clinician actually wrote.',
-    ],
-    moved: [
-      'Documentation time fell from thirty to thirty-five minutes to about eighteen. The note is drafted in the room, and the clinician edits rather than composes.',
-      'The evaluation suite turned an argument about quality into a list of failing cases: drug names transcribed wrong, negatives dropped, findings attributed to the wrong speaker. Those became the backlog.',
-    ],
-    hard: [
-      'Speech-to-text on medication names is still the weak point, and a confidence score is not the same as a correct note.',
-      'Summaries drop negations. “No weakness in the left arm” is one word away from the opposite clinical fact, and no metric catches that unless a clinician reads for it.',
-      'Evaluation needs the people whose work you are changing. A dashboard that says 96% is not the same as a neurologist saying it sounds like her.',
-    ],
-    stack: ['FastAPI', 'Medical ASR', 'LLM summarisation', 'PostgreSQL', 'Role-based access control', 'Evaluation design'],
-  },
-  {
     slug: 'procurement-ledger',
-    index: '02',
+    index: '01',
     title: 'One ledger, one definition of “on hand”',
     org: 'Effexoft',
     place: 'Remote',
@@ -95,7 +61,7 @@ export const records: WorkRecord[] = [
   },
   {
     slug: 'protein-network',
-    index: '03',
+    index: '02',
     title: 'Five million edges down to the ones that matter',
     org: 'Illinois Institute of Technology',
     place: 'Chicago',
@@ -129,7 +95,7 @@ export const records: WorkRecord[] = [
   },
   {
     slug: 'repeat-listening',
-    index: '04',
+    index: '03',
     title: 'Why a song survives the third listen',
     org: 'Illinois Institute of Technology',
     place: 'Chicago',

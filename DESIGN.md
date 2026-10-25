@@ -34,7 +34,7 @@ This site sits at L3 with a door open to L4:
 | Page | Level | Why it exists |
 | --- | --- | --- |
 | `/` | L1–L2 | The claim, the texture, four doors. Facts a skimmer needs in one screen. |
-| `/work/` | L1 | A ledger of four records, each with its number. Scannable in 20 seconds. |
+| `/work/` | L1 | A ledger of records, each with its number. Scannable in 20 seconds. |
 | `/work/<slug>/` | L3 | Situation → what I did → what it moved → **what stayed hard**. |
 | `/shelf/` | L3 | Three things that are not data work and are not separate from it. |
 | `/about/` | L3 | The four sentences unpacked, plus history and contact. |

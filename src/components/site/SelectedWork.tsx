@@ -2,7 +2,7 @@ import { projects, smallerProjects } from '@/data/profile';
 import { SectionHead } from './SectionHead';
 
 /**
- * Four projects, each written as a report entry: context in the rail,
+ * Projects, each written as a report entry: context in the rail,
  * outcome up front, method folded away for the reader who wants it.
  */
 export function SelectedWork() {
@@ -10,7 +10,7 @@ export function SelectedWork() {
     <section id="work" className="shell scroll-mt-20 py-14 md:py-20">
       <SectionHead
         index="01 — Selected work"
-        title="Four projects, each with a number attached"
+        title="Every project carries its number"
         note="Every figure here is from a shipped analysis or a measurement taken at the time."
       />
 

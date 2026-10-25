@@ -19,18 +19,17 @@ export const profile = {
   resume: '/resume.pdf',
 } as const;
 
-/** The four numbers a recruiter should leave with. Every one is from the résumé. */
+/** The numbers a recruiter should leave with. Every one is from the résumé. */
 export const headlineMetrics = [
   { value: '−60%', label: 'inventory query time', note: '547K-row pipeline' },
-  { value: '35→18', label: 'min per consultation', note: '96% ASR accuracy' },
   { value: '4.9M→184K', label: 'protein edges pruned', note: 'NSCLC network' },
   { value: '0.04→0.42', label: 'R² on engagement', note: '10,080 tracks' },
 ] as const;
 
 export const positioning = `I build analytics systems that people actually use: pipelines with a named owner,
 dashboards that replace a recurring question, and models whose failure modes are documented
-rather than hidden. Recently: a clinical assistant that took a neurologist's note-taking from
-35 minutes to 18, and a procurement pipeline that cut inventory query time by 60%.`;
+rather than hidden. Most recently: a procurement pipeline over a 547K-row stock ledger that cut
+inventory query time by 60%.`;
 
 export type Project = {
   id: string;
@@ -47,21 +46,8 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    id: 'clinical',
-    index: '01',
-    title: 'Clinical AI assistant for neurologists',
-    context: 'Effexoft',
-    year: '2025',
-    outcome:
-      'A consultation note writes itself while the neurologist talks. Documentation time fell from 30–35 minutes to about 18.',
-    metrics: ['35→18 min', '96%+ transcription'],
-    method:
-      'FastAPI service with a medical speech-to-text pipeline, LLM summarisation, multi-turn conversation memory, and a QA validation suite. Role-based access control on PostgreSQL so every read of a patient record is attributable; audit trail designed before the model was tuned.',
-    stack: ['FastAPI', 'LLM integration', 'Medical ASR', 'PostgreSQL', 'RBAC'],
-  },
-  {
     id: 'procurement',
-    index: '02',
+    index: '01',
     title: 'Procurement-to-delivery analytics pipeline',
     context: 'Effexoft',
     year: '2025',
@@ -87,7 +73,7 @@ export const projects: Project[] = [
   },
   {
     id: 'spotify',
-    index: '04',
+    index: '03',
     title: 'What actually drives repeat listening',
     context: 'Illinois Tech · Regression',
     year: '2024',
@@ -127,8 +113,8 @@ export const experience: Role[] = [
     place: 'Remote',
     proof: '−60% query time',
     points: [
-      'Clinical AI assistant (FastAPI, LLM, medical ASR): consultation documentation from 30–35 min to ~18 min at 96%+ transcription accuracy.',
-      'Role-based access control schema, multi-turn memory, and a QA validation suite for safe, auditable clinical workflows.',
+      'ELT from Salesforce exports into DuckDB and Snowflake (dbt-core, SQL, Python) for a 547K-row stock ledger; 35+ analytical features across inventory, vendor, and procurement dimensions.',
+      'Pandera data-quality contracts on the pipeline — schema drift and anomalous records quarantined before they reach a dashboard.',
       'Procurement-to-delivery pipeline over a 547K-row stock ledger; Power BI dashboards cut inventory query time ~60% and lifted forecast accuracy ~15%.',
     ],
   },
@@ -216,7 +202,7 @@ export const certifications = [
 
 /** Command-palette + nav entries. Keep ids in sync with section ids. */
 export const navSections = [
-  { id: 'work', label: 'Selected work', hint: 'Four projects with numbers' },
+  { id: 'work', label: 'Selected work', hint: 'Projects with numbers' },
   { id: 'experience', label: 'Experience', hint: 'Roles and what changed' },
   { id: 'toolkit', label: 'Toolkit', hint: 'What I actually use' },
   { id: 'education', label: 'Education', hint: 'IIT Chicago · Presidency' },

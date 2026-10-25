@@ -37,7 +37,7 @@ Node 22+ is required (Astro 7). In this workspace `~/.npm` is not writable, so b
 | Route | What it is |
 | --- | --- |
 | `/` | The cover: a four-line statement, a staff of points, four doors |
-| `/work/` | The ledger — four records with their numbers |
+| `/work/` | The ledger — three records with their numbers |
 | `/work/<slug>/` | One record: situation, what I did, what it moved, what stayed hard |
 | `/shelf/` | Singing, mythology and folklore, side projects and the learning log |
 | `/about/` | The four sentences unpacked, how I work, history, contact |
@@ -50,7 +50,7 @@ Node 22+ is required (Astro 7). In this workspace `~/.npm` is not writable, so b
 | I want to… | Edit |
 | --- | --- |
 | Change the cover statement, lede, or the four meta facts | `src/pages/index.astro` |
-| Reword or reorder the four records | `src/data/records.ts` |
+| Reword or reorder the records | `src/data/records.ts` |
 | Add a smaller project (work page and shelf) | `alsoShipped[]` in `src/data/records.ts` |
 | Add a role or change dates | `experience[]` in `src/data/profile.ts` |
 | Change the shelf pieces | `src/pages/shelf.astro` |
@@ -82,7 +82,7 @@ beyond build command `npm run build` and output directory `dist`.
 
 ```
 src/
-  data/records.ts          the four work records + the smaller shipped list
+  data/records.ts          the work records + the smaller shipped list
   data/profile.ts          experience, education, certifications, contact
   layouts/Paper.astro      shell: head, header, footer, tokens, type primitives
   components/paper/StaffCanvas.astro   the canvas staff (reduced-motion aware)

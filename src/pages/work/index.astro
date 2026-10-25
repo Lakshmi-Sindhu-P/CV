@@ -7,13 +7,13 @@ import { href } from '@/lib/href';
 
 <Paper
   title="Work — Lakshmi Sindhu Pulugundla"
-  description="Four work records: a clinical AI assistant, a 547K-row procurement pipeline, a pruned protein network, and a rebuilt regression on 10,000 tracks."
+  description={`${records.length} work records: a 547K-row procurement pipeline, a pruned protein network, and a rebuilt regression on 10,000 tracks.`}
   current="work"
-  fig="Fig. 02 — the ledger: four records, with the numbers they moved."
+  fig={`Fig. 02 — the ledger: ${records.length} records, with the numbers they moved.`}
 >
   <header class="mast">
-    <p class="mast-kicker mono">01 — Work · four records</p>
-    <h1 class="mast-title display">Four projects, each with a number attached</h1>
+    <p class="mast-kicker mono">01 — Work · {records.length} records</p>
+    <h1 class="mast-title display">Every project carries its number</h1>
     <p class="mast-deck">
       Every figure on this page comes from a shipped analysis or from a measurement taken at the
       time. Where something did not work, the record says so — a portfolio that only reports success
