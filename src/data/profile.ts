@@ -2,10 +2,9 @@
  * Single source of truth for every word on the site.
  * Edit here; the components are dumb.
  *
- * TODO(verify): the two most recent résumés disagree on dates —
- *   "Resume 2026 (2).pdf"  → Effexoft Aug 2025–Present, TekLink Feb 2025–Aug 2025
- *   "LSP Vanilla.md"       → Effexoft Aug 2024–Present, TekLink Feb 2024–Aug 2024
- * The 2026 PDF values are used below. Confirm before publishing.
+ * Dates confirmed by Lakshmi (Oct 2026): Effexoft Aug 2025–Present,
+ * TekLink Feb 2025–Aug 2025. An older draft résumé said 2024; it was wrong.
+ * The downloadable public/resume.pdf matches these dates.
  */
 
 export const profile = {

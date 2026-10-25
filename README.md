@@ -103,9 +103,9 @@ DESIGN.md                  why it looks like this
 
 ## Notes and open items
 
-- **Dates still need confirming.** The two newest résumés disagree on when the Effexoft and TekLink
-  roles started (Aug 2025 vs Aug 2024). `profile.ts` carries a `TODO(verify)` and currently uses the
-  2026 PDF. One place to fix, two pages affected.
+- **Dates are confirmed** (Oct 2026): Effexoft Aug 2025–Present, TekLink Feb 2025–Aug 2025. An older
+  résumé draft in the archive says 2024 — it is wrong, and `profile.ts` now carries a comment saying
+  so, so nobody "fixes" it back.
 - **The “fiddler” line is a pun, not a claim** to play the violin. If the fiddle is literal, say so
   and the shelf can carry it.
 - **The shelf needs specifics.** Singing and folklore currently describe the practice, not a
