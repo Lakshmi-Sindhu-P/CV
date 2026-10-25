@@ -170,7 +170,6 @@ export const records: WorkRecord[] = [
       'Evaluation needs the people whose work you are changing. A dashboard that says 96% is not the same as a neurologist saying it sounds like her.',
     ],
     stack: ['FastAPI', 'Medical ASR', 'LLM summarisation', 'PostgreSQL', 'Role-based access control', 'Evaluation design'],
-    repo: { label: 'NeuroAssisit_AI', url: 'https://github.com/Lakshmi-Sindhu-P/NeuroAssisit_AI' },
   },
 ];
 
@@ -193,8 +192,8 @@ export const alsoShipped: SideProject[] = [
   {
     title: 'S&P 500 forecasting',
     detail: '23,323 daily records, 1927–2024 · LSTM with a Streamlit front end',
+    linkNote: 'Repo private',
     note: 'Ninety-seven years of daily closes, an LSTM reading sixty-day windows, and a Streamlit page that lets you pick a ticker. The useful lesson was how quickly a model on that much history runs out of things to say about next week, and how much of the accuracy was the market drifting upward.',
-    url: 'https://github.com/Lakshmi-Sindhu-P/Stock-Market-Prediction',
   },
   {
     title: 'Driver drowsiness detection',
