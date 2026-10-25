@@ -1,0 +1,506 @@
+/**
+ * Global stylesheet — Astryx (design system) + Tailwind (layout utilities)
+ *
+ * Layer order mirrors Astryx's documented Tailwind recipe. Astryx ships
+ * pre-built CSS; it needs no build plugin. Tailwind v4 runs via Vite.
+ *
+ *   reset      → CSS reset
+ *   theme      → Tailwind theme variables
+ *   base       → Tailwind preflight
+ *   astryx-base→ component styles (StyleX output)
+ *   astryx-theme → theme tokens (neutral / stone / butter / gothic / report)
+ *   components → shadcn primitives
+ *   utilities  → Tailwind utilities (highest)
+ *
+ * Anything below is OUTSIDE a layer on purpose: unlayered rules win over all
+ * layers, and here they only re-declare CSS custom properties, so they cannot
+ * fight Tailwind utilities.
+ */
+
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/preflight.css' layer(base);
+
+@import '@astryxdesign/core/reset.css';
+@import '@astryxdesign/core/astryx.css';
+
+/* Themes. Only "report" is used by the portfolio; the other four exist so
+   /design can render a live side-by-side comparison. Delete three lines once
+   a direction is locked. */
+@import '@astryxdesign/theme-neutral/theme.css';
+@import '@astryxdesign/theme-stone/theme.css';
+@import '@astryxdesign/theme-butter/theme.css';
+@import '@astryxdesign/theme-gothic/theme.css';
+
+/* Token → Tailwind utility bridge (bg-surface, text-primary, rounded-lg …) */
+@import '@astryxdesign/core/tailwind-theme.css';
+
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+/* Self-hosted type. No Google Fonts request, no layout shift, no third party. */
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/newsreader';
+@import '@fontsource-variable/jetbrains-mono';
+
+/* ==========================================================================
+   1. REPORT THEME — the custom identity, layered on Astryx tokens
+   A theme in Astryx is "a set of CSS custom property overrides".
+   ========================================================================== */
+
+[data-astryx-theme='report'] {
+  /* Type ------------------------------------------------------------------ */
+  --font-family-heading: 'Newsreader Variable', Newsreader, Georgia, 'Times New Roman', serif;
+  --font-family-body: 'Inter Variable', Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-family-code: 'JetBrains Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Paper + ink ----------------------------------------------------------- */
+  --color-background-body: #faf9f6;
+  --color-background-surface: #ffffff;
+  --color-background-card: #ffffff;
+  --color-background-muted: #f1eee7;
+  --color-background-popover: #ffffff;
+  --color-background-gray: #eeeae2;
+
+  --color-text-primary: #15171b;
+  --color-text-secondary: #5b6068;
+  --color-text-disabled: #9aa0a6;
+  --color-text-placeholder: #9aa0a6;
+
+  --color-icon-primary: #15171b;
+  --color-icon-secondary: #5b6068;
+  --color-icon-disabled: #9aa0a6;
+
+  --color-border: #e3dfd6;
+  --color-border-emphasized: #c7c1b4;
+
+  /* One accent, used with restraint -------------------------------------- */
+  --color-accent: #1e4b8f;
+  --color-accent-muted: #e8eef8;
+  --color-on-accent: #ffffff;
+  --color-text-accent: #1e4b8f;
+  --color-icon-accent: #1e4b8f;
+  --color-neutral: #6b7280;
+
+  /* Status ---------------------------------------------------------------- */
+  --color-success: #2f7d5b;
+  --color-success-muted: #e6f2ec;
+  --color-error: #b3261e;
+  --color-error-muted: #fbeae9;
+  --color-warning: #8a6b18;
+  --color-warning-muted: #f8f1dd;
+
+  /* Shape: editorial = small radii, hairline borders, no float ------------- */
+  --radius-inner: 4px;
+  --radius-element: 6px;
+  --radius-container: 10px;
+  --radius-page: 14px;
+
+  /* Headings: serif, medium weight, tight leading ------------------------- */
+  --text-heading-1-weight: 500;
+  --text-heading-2-weight: 500;
+  --text-heading-3-weight: 500;
+  --text-heading-1-leading: 1.15;
+  --text-heading-2-leading: 1.2;
+  --text-heading-3-leading: 1.25;
+}
+
+/* Dark counterpart. Astryx themes are light-only by default, so the dark
+   palette is authored here rather than assumed. */
+[data-astryx-theme='report'][data-color-scheme='dark'] {
+  --color-background-body: #0f1216;
+  --color-background-surface: #151a1f;
+  --color-background-card: #161b21;
+  --color-background-muted: #1b2027;
+  --color-background-popover: #1a2027;
+  --color-background-gray: #1d232a;
+
+  --color-text-primary: #e9e6df;
+  --color-text-secondary: #9ba3ac;
+  --color-text-disabled: #6b737c;
+  --color-text-placeholder: #6b737c;
+
+  --color-icon-primary: #e9e6df;
+  --color-icon-secondary: #9ba3ac;
+
+  --color-border: #262d35;
+  --color-border-emphasized: #39424c;
+
+  --color-accent: #8fb3f0;
+  --color-accent-muted: #1b2433;
+  --color-on-accent: #0b1017;
+  --color-text-accent: #9fc1f5;
+  --color-icon-accent: #9fc1f5;
+
+  --color-success: #6fbf95;
+  --color-success-muted: #14211b;
+  --color-error: #e8837c;
+  --color-error-muted: #241615;
+  --color-warning: #d9b662;
+  --color-warning-muted: #241f14;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-astryx-theme='report']:not([data-color-scheme='light']) {
+    --color-background-body: #0f1216;
+    --color-background-surface: #151a1f;
+    --color-background-card: #161b21;
+    --color-background-muted: #1b2027;
+    --color-background-popover: #1a2027;
+    --color-text-primary: #e9e6df;
+    --color-text-secondary: #9ba3ac;
+    --color-border: #262d35;
+    --color-border-emphasized: #39424c;
+    --color-accent: #8fb3f0;
+    --color-accent-muted: #1b2433;
+    --color-on-accent: #0b1017;
+    --color-text-accent: #9fc1f5;
+    --color-icon-accent: #9fc1f5;
+  }
+}
+
+/* ==========================================================================
+   2. SHADCN BRIDGE — shadcn tokens aliased to Astryx tokens (not duplicated)
+   shadcn primitives (components.json → src/components/ui) then inherit the
+   Astryx theme automatically, so the two systems cannot drift apart.
+   ========================================================================== */
+
+@theme inline {
+  --color-background: var(--color-background-body);
+  --color-foreground: var(--color-text-primary);
+  --color-card: var(--color-background-card);
+  --color-card-foreground: var(--color-text-primary);
+  --color-popover: var(--color-background-popover);
+  --color-popover-foreground: var(--color-text-primary);
+  --color-primary: var(--color-accent);
+  --color-primary-foreground: var(--color-on-accent);
+  --color-secondary: var(--color-background-muted);
+  --color-secondary-foreground: var(--color-text-primary);
+  --color-muted: var(--color-background-muted);
+  --color-muted-foreground: var(--color-text-secondary);
+  --color-accent: var(--color-accent-muted);
+  --color-accent-foreground: var(--color-text-accent);
+  --color-destructive: var(--color-error);
+  --color-border: var(--color-border);
+  --color-input: var(--color-border);
+  --color-ring: var(--color-accent);
+  --radius-sm: var(--radius-inner);
+  --radius-md: var(--radius-element);
+  --radius-lg: var(--radius-container);
+}
+
+/* ==========================================================================
+   3. DOCUMENT
+   ========================================================================== */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-background-body);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  font-feature-settings: 'cv11', 'ss01';
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================================
+   4. EDITORIAL PRIMITIVES
+   Small, named, reusable. These carry the identity; Astryx carries behaviour.
+   ========================================================================== */
+
+.shell {
+  width: 100%;
+  max-width: 74rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .shell {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* Section number + label, e.g. "01 · Selected work" */
+.eyebrow {
+  font-family: var(--font-family-code);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.hero-title {
+  font-family: var(--font-family-heading);
+  font-weight: 400;
+  font-size: clamp(2.5rem, 6vw, 4.35rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.lede {
+  font-family: var(--font-family-heading);
+  font-size: clamp(1.0625rem, 1.45vw, 1.25rem);
+  line-height: 1.55;
+  color: var(--color-text-primary);
+  text-wrap: pretty;
+  margin: 0;
+}
+
+.prose-body {
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.rule {
+  height: 1px;
+  background: var(--color-border);
+  border: 0;
+  width: 100%;
+}
+
+.metric {
+  font-family: var(--font-family-code);
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.metric-label {
+  font-family: var(--font-family-code);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  line-height: 1.3;
+}
+
+/* Astryx ships a single type system (system sans) for every theme; headings
+   from its components adopt the identity's heading face so the design system
+   and the editorial voice do not fight. */
+[data-astryx-theme] .astryx-heading {
+  font-family: var(--font-family-heading);
+}
+
+/* Explicit colour utilities. shadcn and Astryx both publish colour utilities
+   with overlapping names (text-primary, bg-accent), so the site uses these
+   unambiguous aliases instead of guessing which layer wins. */
+.u-ink {
+  color: var(--color-text-primary);
+}
+.u-muted {
+  color: var(--color-text-secondary);
+}
+.u-accent {
+  color: var(--color-text-accent);
+}
+.u-surface {
+  background-color: var(--color-background-surface);
+}
+.u-card {
+  background-color: var(--color-background-card);
+}
+.u-muted-bg {
+  background-color: var(--color-background-muted);
+}
+.u-hairline {
+  border-color: var(--color-border);
+}
+.u-hairline-strong {
+  border-color: var(--color-border-emphasized);
+}
+
+/* Quiet outline button — Astryx's secondary variant is a filled grey chip,
+   which shouts next to the primary action on a paper background. */
+.btn-quiet {
+  background-color: transparent !important;
+  color: var(--color-text-primary) !important;
+  box-shadow: inset 0 0 0 1px var(--color-border-emphasized);
+}
+.btn-quiet:hover {
+  background-color: var(--color-background-muted) !important;
+}
+
+/* Stack chips — hairline boxes, mono, no pills */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 0.15rem 0.4rem 0.1rem;
+  font-family: var(--font-family-code);
+  font-size: 0.6875rem;
+  letter-spacing: -0.01em;
+  color: var(--color-text-secondary);
+  background-color: var(--color-background-surface);
+  white-space: nowrap;
+}
+
+/* Metric chips read as figures, so they get the accent colour */
+.chip-metric {
+  color: var(--color-text-accent);
+  font-weight: 500;
+  border-color: color-mix(in srgb, var(--color-accent) 34%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-accent) 6%, var(--color-background-surface));
+}
+
+/* Disclosure for method notes */
+details > summary {
+  list-style: none;
+  cursor: pointer;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details[open] .disclosure-chevron {
+  transform: rotate(90deg);
+}
+
+/* Sticky masthead with a translucent paper backdrop */
+.header-sticky {
+  background-color: color-mix(in srgb, var(--color-background-body) 86%, transparent);
+  backdrop-filter: saturate(140%) blur(10px);
+  -webkit-backdrop-filter: saturate(140%) blur(10px);
+}
+
+.monogram {
+  font-family: var(--font-family-heading);
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  border: 1px solid var(--color-border-emphasized);
+  border-radius: var(--radius-inner);
+  padding: 0.4rem 0.5rem 0.35rem;
+}
+
+.kbd {
+  font-family: var(--font-family-code);
+  font-size: 0.6875rem;
+  border: 1px solid var(--color-border);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  padding: 0.1rem 0.3rem;
+  color: var(--color-text-secondary);
+  background: var(--color-background-surface);
+}
+
+/* Sticky section label used in the left rail on large screens */
+.rail {
+  position: sticky;
+  top: 6rem;
+  align-self: start;
+}
+
+/* Hairline grid used behind the hero — evokes a plotting surface */
+.paper-grid {
+  background-image: linear-gradient(to right, var(--color-border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 20%, transparent 78%);
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 20%, transparent 78%);
+  opacity: 0.55;
+}
+
+.link-underline {
+  color: var(--color-text-primary);
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  padding-bottom: 2px;
+  transition: background-size 180ms ease, color 180ms ease;
+}
+
+.link-underline:hover {
+  background-size: 0% 1px;
+  color: var(--color-text-accent);
+}
+
+/* Reveal-on-scroll. Progressive: nothing hidden without JS. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 620ms cubic-bezier(0.22, 1, 0.36, 1), transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ==========================================================================
+   5. PRINT — recruiters do print CVs
+   ========================================================================== */
+
+@media print {
+  :root {
+    --color-background-body: #fff;
+    --color-text-secondary: #333;
+  }
+  .no-print,
+  header[data-site-header],
+  .paper-grid {
+    display: none !important;
+  }
+  body {
+    font-size: 10.5pt;
+    background: #fff;
+  }
+  .shell {
+    max-width: none;
+    padding-inline: 0;
+  }
+  .hero-title {
+    font-size: 26pt;
+  }
+  section {
+    break-inside: avoid;
+    padding-block: 8pt !important;
+  }
+  a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-family: var(--font-family-code);
+    font-size: 7.5pt;
+    color: #555;
+  }
+  .js .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

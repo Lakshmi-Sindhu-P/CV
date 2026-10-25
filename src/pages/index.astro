@@ -1,0 +1,67 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { Header } from '@/components/site/Header';
+import { Hero } from '@/components/site/Hero';
+import { SelectedWork } from '@/components/site/SelectedWork';
+import { Experience } from '@/components/site/Experience';
+import { Toolkit } from '@/components/site/Toolkit';
+import { Education } from '@/components/site/Education';
+import { Footer } from '@/components/site/Footer';
+import CommandPalette from '@/components/site/CommandPalette';
+import { profile } from '@/data/profile';
+
+const title = `${profile.name} — ${profile.role}`;
+const description =
+  'Lakshmi Sindhu Pulugundla — data analyst and data scientist in Chicago. Clinical AI at 96% transcription accuracy, a 547K-row procurement pipeline, and network analysis on 4.9M protein interactions.';
+---
+
+<BaseLayout title={title} description={description}>
+  <Header />
+
+  <main id="main">
+    <Hero />
+
+    <div class="reveal">
+      <SelectedWork />
+    </div>
+
+    <div class="reveal">
+      <Experience />
+    </div>
+
+    <div class="reveal">
+      <Toolkit />
+    </div>
+
+    <div class="reveal">
+      <Education />
+    </div>
+  </main>
+
+  <Footer />
+
+  <CommandPalette client:load />
+
+  <script>
+    /* Colour scheme toggle — the boot script in BaseLayout does the same
+       attribute earlier so there is no flash on reload. */
+    const toggle = document.getElementById('theme-toggle');
+    toggle?.addEventListener('click', () => {
+      const root = document.documentElement;
+      const current = root.getAttribute('data-color-scheme') === 'dark' ? 'dark' : 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-color-scheme', next);
+      try {
+        localStorage.setItem('lsp-theme', next);
+      } catch {
+        /* private mode — ignore */
+      }
+    });
+
+    /* The palette lives in a React island, so the static trigger talks to it
+       through a DOM event rather than a shared store. */
+    document.getElementById('palette-trigger')?.addEventListener('click', () => {
+      window.dispatchEvent(new CustomEvent('lsp:open-palette'));
+    });
+  </script>
+</BaseLayout>
