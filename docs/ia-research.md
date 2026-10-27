@@ -85,7 +85,7 @@ You asked for theme 7's warmth with your personality in it, multipage. The ladde
 | Route | Level | Purpose | Effort |
 |---|---|---|---|
 | `/` cover | L1 | the four-line statement, one texture, three doors | done (prototype) |
-| `/work` | L0–L2 | ledger index: four records, numbers up front | 1 pass |
+| `/work` | L0–L2 | ledger index: five records, numbers up front | 1 pass |
 | `/work/[slug]` × 4 | L2 | ~500 words each: problem, what I did, what it moved | 4 × half day |
 | `/shelf` | L3 | singing, folklore, cooking, reading — lists with a line each | 2 hours, then living |
 | `/about` | L3 | the four-line statement unpacked, in prose | 1 hour |

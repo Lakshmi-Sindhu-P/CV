@@ -35,6 +35,7 @@ import { href } from '@/lib/href';
             <span class="row-title">{record.title}</span>
             <span class="row-deck">{record.deck}</span>
             <span class="row-chips">
+              {record.status && <span class="chip chip-metric mono">{record.status}</span>}
               {record.chips.map((chip) => (
                 <span class="chip mono">{chip}</span>
               ))}
@@ -60,6 +61,7 @@ import { href } from '@/lib/href';
             <span class="row-title">{record.title}</span>
             <span class="row-deck">{record.deck}</span>
             <span class="row-chips">
+              {record.status && <span class="chip chip-metric mono">{record.status}</span>}
               {record.chips.map((chip) => (
                 <span class="chip mono">{chip}</span>
               ))}

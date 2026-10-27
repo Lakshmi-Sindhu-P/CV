@@ -39,6 +39,9 @@ import { href } from '@/lib/href';
     <header class="record-head">
       <h1 class="record-title display">{record.title}</h1>
       <p class="record-deck">{record.deck}</p>
+      {record.status && (
+        <p class="record-status mono"><span class="status-dot" />{record.status} — not finished</p>
+      )}
 
       <dl class="record-meta">
         <div><dt class="mono">Organisation</dt><dd>{record.org}</dd></div>
@@ -154,6 +157,24 @@ import { href } from '@/lib/href';
     line-height: 1.5;
     color: var(--ink-2);
     text-wrap: pretty;
+  }
+
+  .record-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 6px 0 0;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--rust);
+  }
+
+  .status-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
   }
 
   .record-meta {

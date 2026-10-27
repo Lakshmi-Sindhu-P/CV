@@ -15,6 +15,8 @@ export type WorkRecord = {
   org: string;
   place: string;
   period: string;
+  /** Optional status marker, shown as a chip on the ledger and a line on the record. */
+  status?: string;
   role: string;
   deck: string;
   chips: string[];
@@ -179,8 +181,9 @@ export const records: WorkRecord[] = [
     org: 'Independent project',
     place: 'Chicago',
     period: '2026',
-    role: 'Design, build, evaluation',
-    deck: 'A security-triage research repository where every sentence in the documentation points at an artifact, a digest and a ledger entry — including the sentence that says the idea did not work.',
+    status: 'in progress',
+    role: 'Design, build, evaluation — ongoing',
+    deck: 'A security-triage research repository, still in its early phases: every sentence in the documentation points at an artifact, a digest and a ledger entry — including the sentence that says an idea did not work.',
     chips: ['107,251 rows, 0 rejects', 'threshold frozen at 0.20', 'scenario 7 sealed'],
     figures: [
       { value: '107,251', label: 'CTU-13 flows accepted with zero rejected rows' },
@@ -192,7 +195,7 @@ export const records: WorkRecord[] = [
       'The constraint came before the code: no claim may exist without an artifact that backs it, and a claim that fails its own check stays in the ledger with the refutation attached.',
     ],
     work: [
-      'Built the bottom half of that system in Python 3.12 on a locked environment: two source adapters (IoT-23 Zeek, CTU-13 Argus) emitting typed canonical events, deterministic UUIDv5 identities, quality reports and checksum-backed dataset manifests — 107,251 rows accepted from Scenario 11 with zero rejects.',
+      'What exists so far is the bottom half of that system, and it is being extended rather than finished: Python 3.12 on a locked environment, two source adapters (IoT-23 Zeek, CTU-13 Argus) emitting typed canonical events, deterministic UUIDv5 identities, quality reports and checksum-backed dataset manifests — 107,251 rows accepted from Scenario 11 with zero rejects.',
       'Three feature generations under a leakage contract — 26 flow columns, a scenario-local behavioral family, and a prior-only causal family — each frozen before comparison, with a sealed-scenario guard so the holdout could not be used for tuning.',
       'A validation-only benchmark across rules, logistic regression, random forest, extra trees, histogram gradient boosting and a linear SVM, then a 450-policy simulated reviewer sweep. A results ledger is generated from JSON and machine-checked against an experiment registry, so the build fails if a claim drifts from its citation.',
     ],
@@ -203,7 +206,7 @@ export const records: WorkRecord[] = [
     hard: [
       'Unknown-label rows dominate a real capture, and excluding them from supervised metrics shrinks the sample every claim rests on. Saying so costs headline numbers, which is the reason to say it.',
       'The sealed scenario can be opened exactly once, so every experiment that touches it spends something that cannot be replaced.',
-      'The parts that would make it operational — finding aggregation, evidence retrieval, LLM triage, the human review tier — are planned and documented, not implemented. The repository says that in its first table rather than its last paragraph.',
+      'Roughly half the intended system does not exist yet: finding aggregation, evidence retrieval, LLM triage and the human review tier are planned and documented, not built. The repository says so in its first table rather than its last paragraph, and the site record says it here.',
     ],
     stack: ['Python 3.12', 'Pydantic', 'Parquet / DuckDB', 'scikit-learn', 'pytest', 'mypy', 'CI'],
     repo: { label: 'ClueLattice', url: 'https://github.com/Lakshmi-Sindhu-P/ClueLattice' },
