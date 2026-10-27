@@ -12,6 +12,7 @@ const routes = [
   ['record-ledger', '/work/procurement-ledger/'],
   ['record-network', '/work/protein-network/'],
   ['record-listening', '/work/repeat-listening/'],
+  ['record-cluelattice', '/work/cluelattice/'],
   ['shelf', '/shelf/'],
   ['about', '/about/'],
   ['404', '/404.html'],

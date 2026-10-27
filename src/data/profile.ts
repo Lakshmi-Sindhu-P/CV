@@ -23,7 +23,7 @@ export const profile = {
 export const headlineMetrics = [
   { value: '−60%', label: 'inventory query time', note: '547K-row pipeline' },
   { value: '4.9M→184K', label: 'protein edges pruned', note: 'NSCLC network' },
-  { value: '0.04→0.42', label: 'R² on engagement', note: '10,080 tracks' },
+  { value: '0.085', label: 'R² after the leakage audit', note: '5,040 distinct tracks' },
 ] as const;
 
 export const positioning = `I build analytics systems that people actually use: pipelines with a named owner,
@@ -92,7 +92,7 @@ export const projects: Project[] = [
     year: '2024',
     outcome:
       'A baseline that explained 4% of engagement variance, rebuilt until it explained 42% — and a clear answer about which audio features matter.',
-    metrics: ['R² 0.04→0.42', '10,080 tracks'],
+    metrics: ['R² 0.42 → 0.085', '10,080 rows → 5,040 tracks'],
     method:
       'Log-transformed targets, interaction terms, and Ridge/Lasso regularisation with cross-validated shrinkage. Genre, artist popularity, tempo, and energy were the stable predictors; the outliers were more interesting than the fit.',
     stack: ['R', 'Python', 'Ridge / Lasso', 'Regression diagnostics'],

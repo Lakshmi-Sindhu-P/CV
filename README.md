@@ -37,7 +37,7 @@ Node 22+ is required (Astro 7). In this workspace `~/.npm` is not writable, so b
 | Route | What it is |
 | --- | --- |
 | `/` | The cover: a four-line statement, a staff of points, four doors |
-| `/work/` | The ledger — three employed/client records, then independent projects, then the smaller shipped work |
+| `/work/` | The ledger — three employed/client records, then two independent projects, then the smaller shipped work |
 | `/work/<slug>/` | One record: situation, what I did, what it moved, what stayed hard |
 | `/shelf/` | Singing, mythology and folklore, side projects and the learning log |
 | `/about/` | The four sentences unpacked, how I work, history, contact |
@@ -57,7 +57,10 @@ Node 22+ is required (Astro 7). In this workspace `~/.npm` is not writable, so b
 | Swap the résumé PDF | replace `public/resume.pdf` |
 | Change the name in the header or footer | `src/layouts/Paper.astro` |
 
-Every figure on the site comes from the résumé; the case-study prose was written from the work that
+Every figure on the site comes from the résumé or from the repository a record links to. Two records
+were re-audited in October 2026 after their public READMEs turned out to contradict the résumé line:
+the Spotify regression (`R² 0.42 → 0.085`, 5,040 distinct tracks) and the CTU-13 triage ledger. Both
+pages now state the corrected number and what displaced the old one. The case-study prose was written from the work that
 produced those figures. A number appears in two places — the ledger chip and the record's figures —
 so change both.
 

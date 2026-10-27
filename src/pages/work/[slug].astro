@@ -28,12 +28,12 @@ import { href } from '@/lib/href';
   title={`${record.title} — ${record.org}, ${record.period}`}
   description={record.deck}
   current="work"
-  fig={`Fig. ${record.index} — record ${record.index} of 04 · ${record.org}, ${record.period}`}
+  fig={`Fig. ${record.index} — record ${record.index} of ${String(records.length).padStart(2, '0')} · ${record.org}, ${record.period}`}
 >
   <article class="record">
     <div class="record-top">
       <a class="back mono" href={href("/work/")}>← All work</a>
-      <span class="record-count mono">Record {record.index} / 04</span>
+      <span class="record-count mono">Record {record.index} / {String(records.length).padStart(2, '0')}</span>
     </div>
 
     <header class="record-head">
