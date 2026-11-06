@@ -211,6 +211,45 @@ export const records: WorkRecord[] = [
     stack: ['Python 3.12', 'Pydantic', 'Parquet / DuckDB', 'scikit-learn', 'pytest', 'mypy', 'CI'],
     repo: { label: 'ClueLattice', url: 'https://github.com/Lakshmi-Sindhu-P/ClueLattice' },
   },
+  {
+    slug: 'biosynvia',
+    index: '06',
+    group: 'independent',
+    title: 'What the bioreactor data could not support',
+    org: 'Independent project',
+    place: 'Chicago',
+    period: '2026',
+    status: 'research foundation',
+    role: 'Research software — data engineering and scientific audit',
+    deck: 'Sensors on a CHO culture report every minute; the cells are measured a few times a day. BioSynvia is the engineering between those two clocks — and the audits that kept saying the data would not support the model I wanted to fit.',
+    chips: ['24 cultivations', '214 blanks kept blank', '0 models fitted'],
+    figures: [
+      { value: '24', label: 'CHO cultivations: 12 experiments, two reactors each' },
+      { value: '214', label: 'original assay blanks preserved as blanks, not zeros' },
+      { value: '18', label: 'core tests that run with no research dataset at all' },
+    ],
+    situation: [
+      'The corpus is a public CHO-K1 dataset: twelve experiments, each with an R01 and an R02 reactor, nine batch and three fed-batch. Inline sensors record permittivity, turbidity, dissolved CO₂, pH, oxygen and temperature continuously; the offline assays that measure the cells themselves arrive a few times a day, 378 records in all.',
+      'The goal is soft sensing — estimate viable cell density at sensor frequency, then a digital twin later. The order I took it in was: first establish whether the files agree with each other. They do not, and finding out exactly how turned out to be more useful than another regression.',
+    ],
+    work: [
+      'Preserved the original workbooks beside canonicalised, typed observation tables: checksums and manifests so any figure traces back to the cells it came from, quality flags carried rather than silently resolved, and reactor isolation so a snapshot for one run cannot see another run’s future.',
+      'Then the audits, as scripts rather than paragraphs — schema and timing checks, missingness measured against the raw cells, a leakage review of the feed path, and EDA figures generated from the tables. A synthetic demo runs the same audit on invented data with no dependencies, so the data contract is testable by anyone without the dataset.',
+    ],
+    moved: [
+      'Two hundred and fourteen concentration blanks — 135 glucose, 51 lactate, 28 ammonium — are blanks, not measured zeros. The paper describes below-detection results without giving numerical limits; a pipeline that imputes them converts an absence into a claim.',
+      'Six recorded VCD zeros are uncertain: five in one contaminated run, one a separate open question. Feed updates consumed offline assay information, which is a leakage path into any “real-time” feature set. And the published nearest-neighbour alignment can reach a future observation, so it cannot by itself prove a past-only cutoff.',
+      'The conservative cohort comes to 308 supported positive records. That is a feasibility count for the next experiment, not an accuracy, and it is written down as one.',
+    ],
+    hard: [
+      'The pressure is to fill the blanks and fit the model, because a filled table produces a number and a preserved table produces a paragraph. The paragraph is the honest artifact here.',
+      'A change-only process log includes held values: a row’s timestamp proves the row, not a fresh acquisition for every variable in it. Nothing in the file says which is which.',
+      'Model fitting is paused, and the repository says so in its first table rather than its last paragraph. What exists is a research foundation with eighteen dataset-free tests passing; what does not exist is a validated digital twin.',
+      'AI tools assisted the implementation and the review. The evidence is the tests and the primary sources — agreement between agents is not scientific validation, and the repository says that too.',
+    ],
+    stack: ['Python 3.11+', 'Data contracts', 'Checksums & manifests', 'Leakage auditing', 'Parametric EDA', 'unittest'],
+    repo: { label: 'BioSynvia', url: 'https://github.com/Lakshmi-Sindhu-P/BioSynvia' },
+  },
 ];
 
 export const recordBySlug = (slug: string) => records.find((r) => r.slug === slug);
