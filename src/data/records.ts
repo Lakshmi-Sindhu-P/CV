@@ -250,6 +250,43 @@ export const records: WorkRecord[] = [
     stack: ['Python 3.11+', 'Data contracts', 'Checksums & manifests', 'Leakage auditing', 'Parametric EDA', 'unittest'],
     repo: { label: 'BioSynvia', url: 'https://github.com/Lakshmi-Sindhu-P/BioSynvia' },
   },
+  {
+    slug: 'campaign-prophet',
+    index: '07',
+    group: 'independent',
+    title: 'Who to call first',
+    org: 'Independent project',
+    place: 'Chicago',
+    period: '2026',
+    role: 'Modeling and decision support',
+    deck: 'Eleven per cent of a bank’s outbound calls convert. The model that decides who to call next cannot use the field that predicts conversion best — so the cost of that rule, measured, is the finding.',
+    chips: ['41,176 records', '+0.135 leakage cost', '2.05× lift at 10%'],
+    figures: [
+      { value: '41,176', label: 'unique records, twelve duplicate rows removed' },
+      { value: '2.05×', label: 'lift over the base rate at top-10% capacity' },
+      { value: '0.135', label: 'ROC-AUC traded away by excluding call duration' },
+    ],
+    situation: [
+      'A Portuguese retail bank made outbound calls between May 2008 and November 2010 to sell term deposits. Eleven point two seven per cent said yes — 4,639 people out of 41,176, once twelve duplicate rows came out.',
+      'The question is not whether a model can predict a subscription. It is who to call first when calling capacity is fixed, and the strongest single predictor — call duration — only exists once the call is already happening. A model that needs it cannot decide who to call.',
+    ],
+    work: [
+      'Nineteen predictors, each one knowable before a number is dialled: demographics, the timing of this campaign, prior-contact history, and the five Banco de Portugal macro series embedded in the dataset. Duration and the number of contacts in this campaign are excluded from every operational model, and the exclusion is typed policy in the pipeline rather than a footnote.',
+      'Models are selected on Average Precision over an internal validation slice of the training period. The final fifth of the file, in source order as a proxy for time, is touched once and reported. Leakage is quantified by fitting a naive full-information model on the identical random split, so the gap arrives with a paired confidence interval instead of a claim. Calibration is fitted out-of-fold and tested for whether it transfers; capacity is framed as a percent of the population — 5, 10, 20, 30, 50% — with precision@K, lift, bootstrap intervals and a one-sided binomial test against the base rate.',
+    ],
+    moved: [
+      'The honest feature policy costs 0.1352 ROC-AUC (95% CI 0.121–0.150) against a naive model that scored 0.9480 on the same split. That is what the leaky version was buying with information nobody has at decision time.',
+      'The random split flatters everything: 0.8126 there, 0.7180 on the temporal holdout. Training on a 6.4% base rate and scoring a 30.8% regime is a shift rather than a model failure — three macro features sit above a PSI of 12 — and the repository reports that split instead of choosing a kinder one.',
+      'At 10% capacity — 824 contacts — the model reaches 521 responders: 20.5% coverage and 2.05× lift (1.95–2.15), p = 1.6e-81. Random Forest and logistic regression land seven responders apart there, which is why no champion/challenger architecture was built.',
+    ],
+    hard: [
+      'Calibration does not transfer. Isotonic and Platt both score worse on Brier and ECE under drift while the ranking is untouched (Spearman 0.9956), so probabilities are used only as relative expected-responder counts, and the repository states they are unfit for absolute-value claims.',
+      'There is no control group, so nothing here is causal or uplift. The ROI figures are labelled scenarios in config/roi_scenarios.json, not observed bank economics, and the recommendation is relative coverage rather than money.',
+      'Source order is only a proxy for time — no true timestamps. XGBoost is wired but gated on the macOS OpenMP runtime, so what ran is a formally scoped two-model comparison. Thirteen contract tests pin every published number to a regenerated artifact.',
+    ],
+    stack: ['Python 3.10+', 'scikit-learn 1.7', 'pandas 2.3', 'Bootstrap CIs', 'pytest', 'MIT'],
+    repo: { label: 'Campaign-Prophet', url: 'https://github.com/Lakshmi-Sindhu-P/Campaign-Prophet' },
+  },
 ];
 
 export const recordBySlug = (slug: string) => records.find((r) => r.slug === slug);

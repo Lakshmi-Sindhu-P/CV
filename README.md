@@ -37,7 +37,7 @@ Node 22+ is required (Astro 7). In this workspace `~/.npm` is not writable, so b
 | Route | What it is |
 | --- | --- |
 | `/` | The cover: a four-line statement, a staff of points, four doors |
-| `/work/` | The ledger — three employed/client records, then three independent projects, then the smaller shipped work |
+| `/work/` | The ledger — three employed/client records, then four independent projects, then the smaller shipped work |
 | `/work/<slug>/` | One record: situation, what I did, what it moved, what stayed hard |
 | `/shelf/` | Singing, mythology and folklore, side projects and the learning log |
 | `/about/` | The four sentences unpacked, how I work, history, contact |
